@@ -13,7 +13,7 @@ class User(AbstractUser):
     'nome',
     max_length = 255
     )'''
-	#mudei
+
     telefone = models.CharField('telefone',
     max_length=255,)
     cpf = models.CharField('cpf',
