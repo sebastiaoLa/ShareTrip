@@ -3,19 +3,31 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 
+from django.contrib.auth.admin import UserAdmin as auth_UserAdmin
+
 from rede import models
-from forms import UsuarioForm
+from forms import UserAdminCreationForm,UserAdminChangeForm
+from django.utils.translation import ugettext, ugettext_lazy as _
 
 # Register your models here.
 
 #===============================================================================
 # Usuario
 #===============================================================================
-class UsuarioAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'cpf')
-    form = UsuarioForm
 
-admin.site.register(models.Usuario, UsuarioAdmin)
+#admin.site.register(models.User, UserAdmin)
+
+class UserAdmin(auth_UserAdmin):
+    list_display = ('first_name', 'cpf')
+    add_form = UserAdminCreationForm
+    form = UserAdminChangeForm
+    def get_fieldsets(self, request, obj=None):
+        fieldsets = super(UserAdmin,self).get_fieldsets(request,obj)
+        if obj:
+            fieldsets = fieldsets + ((_('Outras Informacoes'), {'fields': ('telefone', 'cpf')}),)
+        return fieldsets
+
+admin.site.register(models.User, UserAdmin)
 
 #===============================================================================
 # Onibus
@@ -45,6 +57,6 @@ admin.site.register(models.Viagem, ViagemAdmin)
 # Bilhete
 #===============================================================================
 class BilheteAdmin(admin.ModelAdmin):
-    list_display = ('passageiro', 'Id')
+    list_display = ('passageiro', 'viagem')
 
 admin.site.register(models.Bilhete, BilheteAdmin)

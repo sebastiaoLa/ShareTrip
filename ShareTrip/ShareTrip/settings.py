@@ -56,7 +56,9 @@ ROOT_URLCONF = 'ShareTrip.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -100,6 +102,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTH_USER_MODEL = 'rede.User'
+
+LOGIN_REDIRECT_URL = 'rede:home'
+LOGOUT_REDIRECT_URL = 'rede:index'
+LOGIN_URL = 'rede:index'
 
 
 # Internationalization

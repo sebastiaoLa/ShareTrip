@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+    {% block navbar %}
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">ShareTrip</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#about">Sobre</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">Contato</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="{% url 'rede:cadastro' %}">Cadastre-se</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {% endblock %}
+    {% block content %}
+    <header class="masthead">
+      <div class="intro-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <h1 class="brand-heading">ShareTrip</h1>
+              <p class="intro-text">A verdadeira viagem do descobrimento não consiste em procurar novas paisagens, mas em ver com novos olhos. - Marcel Proust.</p>
+
+                <center>
+                  <form method="post">
+                    {% csrf_token %}
+                      <div class="form-group">
+                                <div class="col-sm-5">
+                                  {% render_field form.username class="form-control" placeholder="Nome de Usuario" %}
+                                <!--<input type="text" name= 'usuario' class="form-control" placeholder="Nome de Usuário...">--->
+                                </div>
+                            </div>
+                    <div class="form-group">
+                              <div class="col-sm-5">
+                                  {% render_field form.password class="form-control" placeholder=" Sua senha" %}
+                                  <!--<input type="password" name= 'senha1' class="form-control" placeholder="Sua senha...">-->
+                              </div>
+                          </div>
+                    <br>
+                    <button type="submit" class="login"> LOGIN </button>
+                  </form>
+
+                </center>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="content-section text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2>Sobre</h2>
+            <p>O ShareTrip é uma rede social desenvolvida e aperfeiçoada em 2017, pelos alunos José Altair, Sebastião José e Vicente Benedito do IFPB-Cajazeiras, 4° INTIN (Integrado em Informática). Com o objetivo de melhorar o sistema de locomoção, aumentar a comodidade do passageiro e evitar os constrangimentos e imprevistos, foi-se pensado em um meio de interação virtual capaz de criar vinculos de amizade, compartilhar horários e informações sobre as viagens. Dessa forma, os usuários cadastrados desfrutarão de um sitema capaz de fazer solicitações de amizade para dividir poltronas, horários de viagem e outros recursos relacionados.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contact" class="content-section text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2>Contato</h2>
+            <p>Contate-nos para obter maiores informações.
+
+            <ul class="list-inline banner-social-buttons">
+
+              <li class="list-inline-item">
+                <a href= "https://www.facebook.com/vicenteneto.benedito" target="_blank" class="btn btn-default btn-lg">
+                  <i class="fa fa-facebook fa-fw"></i>
+                  <span class="network-name">Vicente</span>
+                </a>
+              </li>
+
+              <li class="list-inline-item">
+                <a href= "https://www.facebook.com/sebasntianjose" target="_blank" class="btn btn-default btn-lg">
+                  <i class="fa fa-facebook fa-fw"></i>
+                  <span class="network-name">Sebastião</span>
+                </a>
+              </li>
+
+              <li class="list-inline-item">
+                <a href= "https://www.facebook.com/altair.dantas.7" target="_blank" class="btn btn-default btn-lg">
+                  <i class="fa fa-facebook fa-fw"></i>
+                  <span class="network-name">Altair</span>
+                </a>
+              </li>
+
+              <br>
+              <br>
+
+              <li class="list-inline-item">
+                <a href="https://instagram.com/vicentenetob" target="_blank" class="btn btn-default btn-lg">
+                  <i class="fa fa-instagram fa-fw"></i>
+                  <span class="network-name">Vicente</span>
+                </a>
+              </li>
+               <li class="list-inline-item">
+                <a href="https://www.instagram.com/sebastiaolacerda/" target="_blank" class="btn btn-default btn-lg">
+                  <i class="fa fa-instagram fa-fw"></i>
+                  <span class="network-name">Sebastião</span>
+                </a>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+{% endblock %}

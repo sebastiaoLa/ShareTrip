@@ -5,13 +5,17 @@ from datetime import datetime
 
 from django.db import models
 
-# Create your models here.
-class Usuario(models.Model):
+from django.contrib.auth.models import AbstractUser
 
-    nome = models.CharField(
+# Create your models here.
+
+class User(AbstractUser):
+
+    '''nome = models.CharField(
     'nome',
     max_length = 255
-    )
+    )'''
+
     telefone = models.CharField(
     'telefone',
     max_length=255,
@@ -21,15 +25,21 @@ class Usuario(models.Model):
     max_length = 14,
     )
 
-    senha = models.CharField(
+    '''senha = models.CharField(
     'Senha',
     max_length = 255
-    )
+    )'''
+
+    def __str__(self):
+        return "%s %s %s" % (self.first_name, self.last_name, self.cpf)
+
+    def __unicode__(self):
+        return unicode("%s %s %s" % (self.first_name, self.last_name, self.cpf))
 
     class Meta:
-        verbose_name = 'usuario'
-        verbose_name_plural = 'usuarios'
-        ordering = ["nome"]
+        verbose_name = 'profile'
+        verbose_name_plural = 'profiles'
+        ordering = ["first_name","last_name"]
 
 
 class Onibus(models.Model):
@@ -43,6 +53,11 @@ class Onibus(models.Model):
     max_length=255
     )
 
+    def __str__(self):
+        return "%s %s" % (self.motorista, self.modelo)
+
+    def __unicode__(self):
+        return unicode("%s %s" % (self.motorista, self.modelo))
 
     class Meta:
         verbose_name = 'onibus'
@@ -61,6 +76,12 @@ class Empresa(models.Model):
     max_length = 255
     )
 
+    def __str__(self):
+        return "%s" % (self.nome)
+
+    def __unicode__(self):
+        return unicode("%s" % (self.nome))
+
     class Meta:
         verbose_name = 'empresa'
         verbose_name_plural = 'empresas'
@@ -72,32 +93,44 @@ class Viagem(models.Model):
     'origem',
     max_length = 255
     )
+
     destino = models.CharField(
     'destino',
     max_length = 255
     )
+
     horaS = models.CharField(
     'Hora de Saida',
     max_length = 255
     )
+
     horaC = models.CharField(
     'Hora de Chegada',
     max_length = 255
     )
+
     empresa = models.ForeignKey(
     'Empresa',
     on_delete=models.CASCADE,
     related_name = "empresa"
     )
+
     onibus = models.ForeignKey(
     'Onibus',
     on_delete=models.CASCADE,
     related_name = "Onibus"
     )
+
     data = models.DateTimeField(
         'Data',
         default=datetime.now()
     )
+
+    def __str__(self):
+        return "%s %s %s" % (self.origem, self.destino, self.data.__str__()[:16])
+
+    def __unicode__(self):
+        return unicode("%s %s %s" % (self.origem, self.destino, self.data.__str__()[:16]))
 
     class Meta:
         verbose_name = 'viagem'
@@ -112,16 +145,23 @@ class Bilhete (models.Model):
     )
 
     passageiro = models.ForeignKey(
-    "Usuario",
+    "User",
     on_delete=models.CASCADE,
     related_name = "passageiro"
     )
 
-    Id = models.ForeignKey(
+    viagem = models.ForeignKey(
     "Viagem",
     on_delete = models.CASCADE,
     related_name = "viagem"
     )
+
+    def __str__(self):
+        return "%s %s %s" % (self.passageiro,self.poltrona,self.viagem.__str__())
+
+    def __unicode__(self):
+        return unicode("%s %s %s" % (self.passageiro,self.poltrona,self.viagem.__str__()))
+
     class Meta:
         verbose_name = 'bilhete'
         verbose_name_plural = 'bilhetes'
