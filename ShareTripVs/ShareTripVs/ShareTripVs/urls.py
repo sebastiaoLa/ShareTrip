@@ -5,11 +5,10 @@ Definition of urls for ShareTripVs.
 from django.conf.urls import include, url
 
 # Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.contrib import admin
+admin.autodiscover()
 
-urlpatterns = [
-    # Examples:
+urlpatterns = [# Examples:
     # url(r'^$', ShareTripVs.views.home, name='home'),
     # url(r'^ShareTripVs/', include('ShareTripVs.ShareTripVs.urls')),
 

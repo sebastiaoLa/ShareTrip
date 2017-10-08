@@ -1,3 +1,4 @@
+#coding:utf-8
 from __future__ import unicode_literals
 
 from datetime import datetime
@@ -16,8 +17,14 @@ class User(AbstractUser):
 
     telefone = models.CharField('telefone',
     max_length=255,)
+    
     cpf = models.CharField('cpf',
     max_length = 14,)
+
+    friends = models.ManyToManyField('rede.User', 
+                                     related_name = 'amigos',)
+
+    
 
     '''senha = models.CharField(
     'Senha',
@@ -35,6 +42,28 @@ class User(AbstractUser):
         verbose_name_plural = 'profiles'
         ordering = ["first_name","last_name"]
 
+class Solicitacao(models.Model):
+
+    de = models.ForeignKey(User,
+                           related_name="Solicitante",
+                           on_delete = models.CASCADE,)
+
+    para = models.ForeignKey(User,
+                             related_name = "Solicitado",
+                             on_delete = models.CASCADE)
+
+    data = models.DateField()
+
+    def __str__(self):
+        return "%s %s %s" % (self.de, self.para)
+
+    def __unicode__(self):
+        return unicode("%s %s %s" % (self.de, self.para))
+
+    class Meta:
+        verbose_name = 'solicitacao'
+        verbose_name_plural = 'solicitacoes'
+        ordering = ["data",]
 
 class Onibus(models.Model):
 

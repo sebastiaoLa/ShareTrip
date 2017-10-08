@@ -115,7 +115,7 @@ LOGIN_URL = 'rede:index'
 
 LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'America/Sao Paulo'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
