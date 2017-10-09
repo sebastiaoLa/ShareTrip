@@ -27,7 +27,7 @@ admin.site.register(models.User, UserAdmin)
 # Onibus
 #===============================================================================
 class OnibusAdmin(admin.ModelAdmin):
-    list_display = ('motorista', 'modelo')
+    list_display = ('modelo',)
 
 admin.site.register(models.Onibus, OnibusAdmin)
 
@@ -38,6 +38,7 @@ class EmpresaAdmin(admin.ModelAdmin):
     list_display = ('nome',)
 
 admin.site.register(models.Empresa, EmpresaAdmin)
+
 
 #===============================================================================
 # Viagem

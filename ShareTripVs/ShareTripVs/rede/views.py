@@ -37,15 +37,29 @@ class HomeView(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
-        print context
+        
+        solicitacoes = models.Solicitacao.objects.filter(para=self.request.user)
+        
+
+        if len(solicitacoes) == 0:
+            context['adicionantes'] = False
+        else:
+            context['adicionantes'] = models.Solicitacao.objects.filter(para=self.request.user)
+        
+
         print self.request.method
         if self.request.method == "POST":
             print self.request.POST
+        print context
         return context
 
     def post(self, request, *args, **kwargs):
         print request   
         print dir(request)
-        print request.POST
+        try:
+            aceitar = self.request.POST['aceitar']
+        except:
+            pass
+
         print request.user
         return HttpResponse(status=200)
