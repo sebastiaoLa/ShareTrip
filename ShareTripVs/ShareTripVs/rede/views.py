@@ -38,18 +38,21 @@ class HomeView(generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         
-        solicitacoes = models.Solicitacao.objects.filter(para=self.request.user)
-        
-
-        if len(solicitacoes) == 0:
-            context['adicionantes'] = False
-        else:
-            context['adicionantes'] = models.Solicitacao.objects.filter(para=self.request.user)
+        context['viagens'] = models.Bilhete.objects.filter(passageiro = self.request.user)
+        context['adicionantes'] = models.Solicitacao.objects.filter(para=self.request.user)
         
 
         print self.request.method
         if self.request.method == "POST":
-            print self.request.POST
+            if 'aceitar' in self.request.POST.keys():
+                if self.request.POST['aceitar']:
+                    user = models.User.objects.filter(pk = self.request.POST['nome'])
+                    self.request.user.amigos.add(user)
+                    user.amigos.add(self.request.user)
+                else:
+                    soli = models.Solicitacao.objects.filter(pk = self.request.POST['nome'])
+                    soli.delete()
+
         print context
         return context
 
@@ -62,4 +65,4 @@ class HomeView(generic.TemplateView):
             pass
 
         print request.user
-        return HttpResponse(status=200)
+        return self.get(request,*args,**kwargs)

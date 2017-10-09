@@ -55,3 +55,11 @@ class BilheteAdmin(admin.ModelAdmin):
     list_display = ('passageiro', 'viagem')
 
 admin.site.register(models.Bilhete, BilheteAdmin)
+
+#===============================================================================
+# Solicitacao
+#===============================================================================
+class SolicitacaoAdmin(admin.ModelAdmin):
+    list_display = ('de', 'para')
+
+admin.site.register(models.Solicitacao, SolicitacaoAdmin)

@@ -10,11 +10,6 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 class User(AbstractUser):
 
-    '''nome = models.CharField(
-    'nome',
-    max_length = 255
-    )'''
-
     telefone = models.CharField('telefone',
     max_length=255,)
     
@@ -24,13 +19,6 @@ class User(AbstractUser):
     friends = models.ManyToManyField('rede.User', 
                                      related_name = 'amigos',
                                      )
-
-    
-
-    '''senha = models.CharField(
-    'Senha',
-    max_length = 255
-    )'''
 
     def __str__(self):
         return "%s %s %s" % (self.first_name, self.last_name, self.cpf)
@@ -56,10 +44,10 @@ class Solicitacao(models.Model):
     data = models.DateField()
 
     def __str__(self):
-        return "%s %s %s" % (self.de, self.para)
+        return "%s %s" % (self.de, self.para)
 
     def __unicode__(self):
-        return unicode("%s %s %s" % (self.de, self.para))
+        return unicode("%s %s" % (self.de, self.para))
 
     class Meta:
         verbose_name = 'solicitacao'

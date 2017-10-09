@@ -30,11 +30,17 @@
                   {% for field in form.visible_fields %}
 
                   <div class="form-group">
-                            <div class="col-sm-5">
+                    <div class="col-sm-5">
                               {% render_field field class="form-control" placeholder=field.label%}
-                              {% for error in field.errors %}
-                                <span class="help-block">{{ error }}</span>
+                              <ul>
+                                {% for error in field.errors %}
+                                
+                                    <li style="color:red">
+                                        <span class="help-block">{{ error }}</span><br />
+                                    </li>
+                                    
                               {% endfor %}
+                                  </ul>
 
                             <!--<input type="text" name= 'nome' class="form-control" placeholder="Digite seu nome...">-->
                             </div>
