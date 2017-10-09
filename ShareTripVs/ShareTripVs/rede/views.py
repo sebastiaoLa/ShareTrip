@@ -42,27 +42,24 @@ class HomeView(generic.TemplateView):
         context['adicionantes'] = models.Solicitacao.objects.filter(para=self.request.user)
         
 
-        print self.request.method
-        if self.request.method == "POST":
-            if 'aceitar' in self.request.POST.keys():
-                if self.request.POST['aceitar']:
-                    user = models.User.objects.filter(pk = self.request.POST['nome'])
-                    self.request.user.amigos.add(user)
-                    user.amigos.add(self.request.user)
-                else:
-                    soli = models.Solicitacao.objects.filter(pk = self.request.POST['nome'])
-                    soli.delete()
-
         print context
         return context
 
     def post(self, request, *args, **kwargs):
         print request   
-        print dir(request)
-        try:
-            aceitar = self.request.POST['aceitar']
-        except:
-            pass
+        print request.POST
 
-        print request.user
+        if 'aceitar' in self.request.POST.keys():
+            if 'True' in self.request.POST['aceitar']:
+                user = models.User.objects.filter(pk = self.request.POST['nome'])[0]
+                #user = self.request.POST['nome']
+                print user
+                self.request.user.amigos.add(user.pk)
+                user.amigos.add(self.request.user.pk)
+                soli = models.Solicitacao.objects.filter(pk = self.request.POST['nome'])
+                soli.delete()
+            else:
+                soli = models.Solicitacao.objects.filter(pk = self.request.POST['nome'])
+                soli.delete()
+
         return self.get(request,*args,**kwargs)
