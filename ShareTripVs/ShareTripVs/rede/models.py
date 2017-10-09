@@ -22,7 +22,8 @@ class User(AbstractUser):
     max_length = 14,)
 
     friends = models.ManyToManyField('rede.User', 
-                                     related_name = 'amigos',)
+                                     related_name = 'amigos',
+                                     )
 
     
 

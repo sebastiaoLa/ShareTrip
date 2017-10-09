@@ -21,3 +21,4 @@ class UserAdminChangeForm(UserChangeForm):
         model = User
         fields = '__all__'
         field_classes = {'username': UsernameField}
+

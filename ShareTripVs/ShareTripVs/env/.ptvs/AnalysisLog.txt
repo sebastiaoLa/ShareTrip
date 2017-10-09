@@ -3423,3 +3423,7 @@ ImportError: DLL load failed: %1 nÒo Ú um aplicativo Win32 vßlido.
 2017-10-05T09:07:32: Saving group "d:\documentos\github\sharetrip\sharetripvs\sharetripvs\env\lib\site-packages\widget_tweaks"
 2017-10-05T09:07:32: End of group "d:\documentos\github\sharetrip\sharetripvs\sharetripvs\env\lib\site-packages\widget_tweaks"
 2017-10-05T09:07:33: Deleting 0 files
+
+2017-10-08T13:01:01: Start analysis
+2017-10-08T13:01:02: IncludeModulesFromModulePath = win32com
+2017-10-08T13:01:03: Deleting 0 files

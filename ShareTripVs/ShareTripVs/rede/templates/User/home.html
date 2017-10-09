@@ -1,11 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% csrf_token %}
     <header class="masthead">
       <div class="intro-body">
         <div class="container">
           <div class="row">
             <div class="col-lg-8 mx-auto"> EM CONSTRUÇÃO </div>
+              <form method="post" class="form-control">
+                  {% csrf_token %}
+                  <label>1</label>
+                  <input name="solicitante" value="{{request.user.pk}}" type="hidden" />
+                  <input name="solicitado" value="1" type="hidden" />
+                  <button type="submit">Adicionar</button>
+              </form>
           </div>
         </div>
       </div>
