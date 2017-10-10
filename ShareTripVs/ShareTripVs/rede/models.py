@@ -7,6 +7,8 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractUser
 
+from django.utils.timezone import now
+
 # Create your models here.
 class User(AbstractUser):
 
@@ -14,7 +16,9 @@ class User(AbstractUser):
     max_length=255,)
     
     cpf = models.CharField('cpf',
-    max_length = 14,)
+    max_length = 14,
+    unique=True
+    )
 
     friends = models.ManyToManyField('rede.User', 
                                      related_name = 'amigos',
@@ -41,7 +45,7 @@ class Solicitacao(models.Model):
                              related_name = "Solicitado",
                              on_delete = models.CASCADE)
 
-    data = models.DateField()
+    data = models.DateField('Data',default=now)
 
     def __str__(self):
         return "%s %s" % (self.de, self.para)
@@ -105,13 +109,13 @@ class Viagem(models.Model):
     )
 
     data = models.DateTimeField('Data',
-        default=datetime.now())
+        default=now)
 
     def __str__(self):
-        return "%s %s %s" % (self.origem, self.destino, self.data.__str__()[:16])
+        return "%s, %s, %s" % (self.origem, self.destino, self.data)
 
     def __unicode__(self):
-        return unicode("%s %s %s" % (self.origem, self.destino, self.data.__str__()[:16]))
+        return unicode("%s, %s, %s" % (self.origem, self.destino, self.data))
 
     class Meta:
         verbose_name = 'viagem'

@@ -10,7 +10,11 @@ urlpatterns = [url(r'^$', auth_views.LoginView.as_view(template_name="User/index
     url(r'^help/$', views.HelpView.as_view(), name='help'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     url(r'^home/$', views.HomeView.as_view(), name='home'),
-    url(r'^cadastro/$', views.UserCreateView.as_view(), name='cadastro'),]
+    url(r'^cadastro/$', views.UserCreateView.as_view(), name='cadastro'),
+    url(r'^deleteBilhete/(?P<pk>[0-9]+)/$', views.DeleteBilheteView.as_view(), name='apagaBilhete'),
+    url(r'^deleteAmizade/(?P<pk>[0-9]+)/$', views.DeleteAmigoView.as_view(), name='apagaAmigo'),
+    url(r'^profile/(?P<pk>[0-9]+)/$', views.DetailProfileView.as_view(), name='profile'),
+    ]
 
 '''url(r'^logout/$', views.CustomLogoutView.as_view(), name='logout'),
 
