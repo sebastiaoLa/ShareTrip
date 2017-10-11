@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 from django.http.response import HttpResponse
 
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.views import generic
 
 from django.core.urlresolvers import reverse_lazy
@@ -21,9 +21,6 @@ class UserCreateView(generic.CreateView):
         context = super(UserCreateView, self).get_context_data(**kwargs)
         context['form']['first_name'].label = "Seu nome"
         return context
-
-
-
 
 
 class HelpView(generic.TemplateView):
@@ -81,34 +78,36 @@ class DeleteBilheteView(generic.DeleteView):
         return context
 
 
-class DeleteAmigoView(generic.DeleteView):
+class DeleteAmigoView(generic.DetailView):
     
     template_name = 'User/deleteAmigo.html'
 
-    model = models.Bilhete
+    model = models.User
+      
+    def post(self,request,*args,**kwargs):
 
-    success_url = reverse_lazy('rede:home')
+        userAPk = request.POST['usera']
+        usera = models.User.objects.get(pk=userAPk)
+        userb = models.User.objects.get(pk=self.request.user.pk)
 
-    def get_context_data(self, **kwargs):
-        
-        context = super(DeleteBilheteView, self).get_context_data(**kwargs)
+        usera.amigos.remove(userb)
+        userb.amigos.remove(usera)
+            
+        return redirect(reverse_lazy('rede:home'))
 
-        print context
-
-        return context
 
 class DetailProfileView(generic.DetailView):
     
     template_name = 'User/profile.html'
 
-    model = models.Bilhete
+    model = models.User
 
+
+
+class BilheteCreateView(generic.TemplateView):
+
+    model = models.Bilhete
+    template_name = 'User/CadastrarViagem.html'
     success_url = reverse_lazy('rede:home')
 
-    def get_context_data(self, **kwargs):
-        
-        context = super(DeleteBilheteView, self).get_context_data(**kwargs)
-
-        print context
-
-        return context
+    fields = ('poltrona','viagem')

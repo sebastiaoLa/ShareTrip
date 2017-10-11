@@ -1,17 +1,40 @@
 ﻿{% extends 'base.html' %}
-
+{% load static from staticfiles %}
 {% block content %}
 
 
 <div class="intro-body" style="margin-top:10%; font-size:1rem">
     <div class="container">
         <div class="row" style="color:black">
-            <div class="panel panel-default panel-body">
-                <form action="" method="post">{% csrf_token %}
-                    <p>Tem certeza que deseja deletar essa viagem? " de {{ object.viagem.origem }} para {{ object.viagem.destino }} dia {{ object.viagem.data }}"?</p>
-                    <a class="btn btn-primary" href="{% url 'rede:home'%}">Cancelar</a>
-                <button class=" btn btn-default" type="submit"> Confirmar </button>
-                </form>
+            <div class="panel panel-group" style="width:100%">
+                <div class="panel panel-default" style="float:left; margin: 20px; padding: 5px">
+                    {% if object.foto %}
+                        <img src="/media/{{object.foto}}" height="120px">
+                    {% else %}
+                        <img src="{% static 'img/No_image_available.svg'%}" height="120px">
+                    {% endif %}
+                </div>
+                <a class="btn btn-default" href="index.html" style="float: right; margin: 20px">EDITAR INFORMAÇÕES</a>
+                    
+                
+                <div class="panel" style=" margin-left:14%; margin-right:20%; margin-top:20px">
+                    <h3 style="font-size:1.3rem; margin-bottom:unset">
+                        {{object.first_name}} {{object.last_name}}
+                    </h3>
+                </div>
+                <div class="panel" style=" margin-left:14%; margin-right:20px;">
+                    Nome de usuário: {{object.username}}
+                </div>
+                <div class="panel" style=" margin-left:14%; margin-right:20px; margin-top:8px">
+                    Email: {{object.email}}
+                </div>
+                <div class="panel" style=" margin-left:14%; margin-right:20px; margin-top:8px">
+                    CPF: {{object.cpf}}
+                </div>
+                <div class="panel" style=" margin-left:14% ; margin-right:20px; margin-top:8px; padding-left: 1%">
+                    Telefone: {{object.telefone}}
+                </div>
+                <br>
             </div>
         </div>
     </div>

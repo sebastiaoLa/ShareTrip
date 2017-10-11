@@ -8,9 +8,10 @@
         <div class="row" style="color:black">
             <div class="panel panel-default panel-body">
                 <form action="" method="post">{% csrf_token %}
-                    <p>Tem certeza que deseja deletar essa viagem? " de {{ object.viagem.origem }} para {{ object.viagem.destino }} dia {{ object.viagem.data }}"?</p>
+                    <input name="usera" value="{{object.pk}}" type="hidden" />
+                    <p>Tem certeza que deseja desfazer a amizade com {{object.first_name}}?</p>
                     <a class="btn btn-primary" href="{% url 'rede:home'%}">Cancelar</a>
-                <button class=" btn btn-default" type="submit"> Confirmar </button>
+                    <button class=" btn btn-default" type="submit"> Confirmar </button>
                 </form>
             </div>
         </div>

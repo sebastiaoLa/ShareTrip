@@ -22,3 +22,9 @@ class UserAdminChangeForm(UserChangeForm):
         fields = '__all__'
         field_classes = {'username': UsernameField}
 
+class BilheteCreateForm(ModelForm):
+    class Meta:
+        model = Bilhete
+        fields = ('poltrona','viagem')
+        
+

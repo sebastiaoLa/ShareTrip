@@ -6,23 +6,34 @@ from datetime import datetime
 from django.db import models
 
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import MinValueValidator
+from decimal import Decimal
 
 from django.utils.timezone import now
+
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'user_{0}/{1}'.format(instance.pk, filename)
 
 # Create your models here.
 class User(AbstractUser):
 
     telefone = models.CharField('telefone',
     max_length=255,)
-    
+
     cpf = models.CharField('cpf',
     max_length = 14,
     unique=True
     )
 
+    
+    foto = models.FileField('Foto',upload_to=user_directory_path, null=True)
+
     friends = models.ManyToManyField('rede.User', 
                                      related_name = 'amigos',
                                      )
+
+   
 
     def __str__(self):
         return "%s %s %s" % (self.first_name, self.last_name, self.cpf)
@@ -125,7 +136,7 @@ class Viagem(models.Model):
 
 class Bilhete(models.Model):
 
-    poltrona = models.IntegerField('poltrona',)
+    poltrona = models.IntegerField('poltrona',validators=[MinValueValidator(Decimal('0.01'))])
 
     passageiro = models.ForeignKey("User",
     on_delete=models.CASCADE,
@@ -145,3 +156,5 @@ class Bilhete(models.Model):
         verbose_name = 'bilhete'
         verbose_name_plural = 'bilhetes'
         ordering = ["passageiro"]
+
+

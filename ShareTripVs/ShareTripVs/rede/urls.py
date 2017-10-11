@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.conf.urls.static import static
 from django.conf.urls import url
+from django.conf import settings
 from django.contrib.auth import views as auth_views
 
 from rede import views
@@ -11,10 +13,11 @@ urlpatterns = [url(r'^$', auth_views.LoginView.as_view(template_name="User/index
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     url(r'^home/$', views.HomeView.as_view(), name='home'),
     url(r'^cadastro/$', views.UserCreateView.as_view(), name='cadastro'),
+    url(r'^criarViagem/$', views.BilheteCreateView.as_view(), name='criarViagem'),
     url(r'^deleteBilhete/(?P<pk>[0-9]+)/$', views.DeleteBilheteView.as_view(), name='apagaBilhete'),
     url(r'^deleteAmizade/(?P<pk>[0-9]+)/$', views.DeleteAmigoView.as_view(), name='apagaAmigo'),
     url(r'^profile/(?P<pk>[0-9]+)/$', views.DetailProfileView.as_view(), name='profile'),
-    ]
+    ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 '''url(r'^logout/$', views.CustomLogoutView.as_view(), name='logout'),
 

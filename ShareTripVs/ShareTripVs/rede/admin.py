@@ -18,7 +18,7 @@ class UserAdmin(auth_UserAdmin):
     def get_fieldsets(self, request, obj=None):
         fieldsets = super(UserAdmin,self).get_fieldsets(request,obj)
         if obj:
-            fieldsets = fieldsets + ((_('Outras Informacoes'), {'fields': ('telefone', 'cpf')}),)
+            fieldsets = fieldsets + ((_('Outras Informacoes'), {'fields': ('telefone', 'cpf','foto')}),)
         return fieldsets
 
 admin.site.register(models.User, UserAdmin)
