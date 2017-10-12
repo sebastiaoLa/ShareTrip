@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm,UserChangeForm,UsernameFi
 class UserForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('first_name','username','email','cpf','telefone','password1','password2')
+        fields = ('first_name','username','email','telefone','password1','password2')
         #widgets = {
         #    'senha': PasswordInput(),
         #}
@@ -14,7 +14,7 @@ class UserForm(UserCreationForm):
 class UserAdminCreationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('first_name','last_name','username','email','is_staff','is_superuser', 'telefone', 'cpf', 'password1', 'password2')
+        fields = ('first_name','last_name','username','email','is_staff','is_superuser', 'telefone', 'password1', 'password2')
 
 class UserAdminChangeForm(UserChangeForm):
     class Meta:

@@ -138,6 +138,7 @@
     <Content Include="rede\templates\index.html" />
     <Content Include="rede\templates\User\cadastro.html" />
     <Content Include="rede\templates\User\CadastrarViagem.html" />
+    <Content Include="rede\templates\User\editProfile.html" />
     <Content Include="rede\templates\User\profile.html" />
     <Content Include="rede\templates\User\deleteAmigo.html" />
     <Content Include="rede\templates\User\deleteBilhete.html" />

@@ -38,6 +38,11 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
+                        {% if request.user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'rede:profile' request.user.pk %}">Profile</a>
+                            </li>
+                        {% endif %}
                         <li class="nav-item">
                             <a class="nav-link js-scroll-trigger" href="{% url 'rede:help'%}">AJUDA</a>
                         </li>

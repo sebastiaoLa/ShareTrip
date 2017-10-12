@@ -1,0 +1,46 @@
+﻿{% extends 'base.html' %}
+{% load static from staticfiles %}
+
+{% load widget_tweaks %}
+{% block content %}
+
+
+<div class="intro-body" style="margin-top:10%; font-size:1rem">
+    <div class="container">
+        <div class="row" style="color:black">
+            <form class="panel panel-group" method="post" style="width:100%">
+                {% csrf_token %}
+                <div class="panel panel-default" style="float:left; margin: 20px; padding: 5px">
+                    {% if object.foto %}
+                        <img src="/media/{{object.foto}}" height="120px">
+                    {% else %}
+                        <img src="{% static 'img/No_image_available.svg'%}" height="120px">
+                    {% endif %}
+                </div>
+
+                {% if object.pk == request.user.pk %}
+                    <button class="btn btn-default" type="submit" style="float: right; margin: 20px">SALVAR INFORMAÇÕES</button>
+                {% endif %}
+                
+                <div class="panel" style=" margin-left:14%; margin-right:20%; margin-top:20px">
+                    <h3 style="font-size:1.3rem; margin-bottom:unset">
+                        {%render_field form.visible_fields.1 placeholder=object.first_name %}
+                    </h3>
+                </div>
+                <div class="panel" style=" margin-left:14%; margin-right:20px;">
+                    Nome de usuário: {%render_field form.visible_fields.2 placeholder=object.username %}
+                </div>
+                <div class="panel" style=" margin-left:14%; margin-right:20px; margin-top:8px">
+                    Email: {%render_field form.visible_fields.3 placeholder=object.email %} 
+                </div>
+                <div class="panel" style=" margin-left:14% ; margin-right:20px; margin-top:8px; padding-left: 1%">
+                    Telefone: {%render_field form.visible_fields.4 placeholder=object.telefone %}
+                </div>
+                <div class="panel" style=" margin-left:14% ; margin-right:20px; margin-top:8px; padding-left: 1%">
+                    Foto: {% render_field form.visible_fields.0%}
+                <br>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

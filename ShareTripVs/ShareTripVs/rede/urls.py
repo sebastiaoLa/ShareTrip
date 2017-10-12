@@ -17,6 +17,7 @@ urlpatterns = [url(r'^$', auth_views.LoginView.as_view(template_name="User/index
     url(r'^deleteBilhete/(?P<pk>[0-9]+)/$', views.DeleteBilheteView.as_view(), name='apagaBilhete'),
     url(r'^deleteAmizade/(?P<pk>[0-9]+)/$', views.DeleteAmigoView.as_view(), name='apagaAmigo'),
     url(r'^profile/(?P<pk>[0-9]+)/$', views.DetailProfileView.as_view(), name='profile'),
+    url(r'^profile/(?P<pk>[0-9]+)/editar/$', views.EditProfileView.as_view(), name='editProfile'),
     ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 '''url(r'^logout/$', views.CustomLogoutView.as_view(), name='logout'),

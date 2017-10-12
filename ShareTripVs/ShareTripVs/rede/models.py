@@ -21,11 +21,6 @@ class User(AbstractUser):
     telefone = models.CharField('telefone',
     max_length=255,)
 
-    cpf = models.CharField('cpf',
-    max_length = 14,
-    unique=True
-    )
-
     
     foto = models.FileField('Foto',upload_to=user_directory_path, null=True)
 
@@ -36,10 +31,10 @@ class User(AbstractUser):
    
 
     def __str__(self):
-        return "%s %s %s" % (self.first_name, self.last_name, self.cpf)
+        return "%s %s" % (self.first_name, self.last_name)
 
     def __unicode__(self):
-        return unicode("%s %s %s" % (self.first_name, self.last_name, self.cpf))
+        return unicode("%s %s" % (self.first_name, self.last_name))
 
     class Meta:
         verbose_name = 'profile'
@@ -103,11 +98,14 @@ class Empresa(models.Model):
 
 class Viagem(models.Model):
 
-    origem = models.CharField('origem',
-    max_length = 255)
+    origem = models.ForeignKey("Cidade",
+                               on_delete=models.CASCADE,
+                               related_name="origem"
+        )
 
-    destino = models.CharField('destino',
-    max_length = 255)
+    destino = models.ForeignKey("Cidade",
+                                on_delete=models.CASCADE,
+                                related_name="destino")
 
     empresa = models.ForeignKey('Empresa',
         on_delete=models.CASCADE,
@@ -158,3 +156,38 @@ class Bilhete(models.Model):
         ordering = ["passageiro"]
 
 
+class Estado(models.Model):
+    nome = models.CharField('estado',
+                            max_length=255)
+
+    sigla = models.CharField('sigla',
+                             max_length=3)
+
+    def __str__(self):
+        return "%s" % (self.sigla)
+
+    def __unicode__(self):
+        return unicode("%s" % (self.sigla))
+
+    class Meta:
+        verbose_name = 'estado'
+        verbose_name_plural = 'estados'
+        ordering = ["nome"]
+
+class Cidade(models.Model):
+    nome = models.CharField('nome',
+                            max_length=255)
+
+    estado = models.ForeignKey('Estado',
+                               on_delete=models.CASCADE,
+                               related_name='estado')
+    def __str__(self):
+        return "%s (%s)" % (self.nome,self.estado.sigla)
+
+    def __unicode__(self):
+        return unicode("%s (%s)" % (self.nome,self.estado.sigla))
+
+    class Meta:
+        verbose_name = 'cidade'
+        verbose_name_plural = 'cidades'
+        ordering = ["nome"]

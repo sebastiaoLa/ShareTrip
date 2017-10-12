@@ -1,5 +1,7 @@
 ﻿{% extends 'base.html' %}
 
+{% load widget_tweaks %}
+
 {% block content %}
 
 
@@ -8,11 +10,14 @@
         <div class="row" style="color:black;">
             <div class="col-md-12 mx-auto">
             <div class="panel panel-default panel-body" >
+
+
                 <form  method="post">
                     
                     <div class="form-control">
                         <label for="poltrona">Poltrona: </label>
-                        <input type="number" name="poltrona" min="0" max="42" />
+                        {% render_field form.visible_fields.0 class="form-control" min="0" max="42" style="width: 10%;display: unset;"%}
+                        <!--<input type="number" name="poltrona" min="0" max="42" />-->
                     </div>
                     <br />
                     

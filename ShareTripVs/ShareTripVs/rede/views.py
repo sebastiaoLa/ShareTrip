@@ -1,8 +1,10 @@
 from __future__ import unicode_literals
-from django.http.response import HttpResponse
-
+from django.http.response import HttpResponse,HttpResponseForbidden
+from django.contrib.auth.models import AnonymousUser
 from django.shortcuts import render,redirect
 from django.views import generic
+from django.core.exceptions import PermissionDenied
+
 
 from django.core.urlresolvers import reverse_lazy
 from rede import models,forms
@@ -23,6 +25,7 @@ class UserCreateView(generic.CreateView):
         return context
 
 
+
 class HelpView(generic.TemplateView):
 
     template_name = 'help/help.html'
@@ -30,6 +33,13 @@ class HelpView(generic.TemplateView):
 class HomeView(generic.TemplateView):
 
     template_name = 'User/home.html'
+
+    def get(self, request, *args, **kwargs):
+
+        if self.request.user.is_anonymous():
+            return redirect(reverse_lazy('rede:index'))
+
+        return super(HomeView, self).get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
@@ -102,12 +112,60 @@ class DetailProfileView(generic.DetailView):
 
     model = models.User
 
+    def get_context_data(self, **kwargs):
+
+        context =  super(DetailProfileView, self).get_context_data(**kwargs)
+
+        context['viagens'] = models.Bilhete.objects.filter(passageiro = self.object.pk)
+
+        print context
+
+        return context
+
+class EditProfileView(generic.UpdateView):
+    template_name = 'User/editProfile.html'
+
+    model = models.User
+
+    
+
+    fields = ('foto','first_name','username','email','telefone')
+
+    def get(self, request, *args, **kwargs):
+
+        if self.request.user.is_anonymous():
+            raise PermissionDenied
+        else:
+            if self.request.user.pk != kwargs['pk']:
+                return redirect(reverse_lazy('rede:profile', args=(kwargs['pk'])))
+                
+        return super(EditProfileView, self).get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(EditProfileView, self).get_context_data(**kwargs)
+
+        return context
+
+    def get_success_url(self):
+
+        
+        return reverse_lazy('rede:profile',args = (self.object.pk,))
 
 
-class BilheteCreateView(generic.TemplateView):
+
+
+class BilheteCreateView(generic.CreateView):
 
     model = models.Bilhete
     template_name = 'User/CadastrarViagem.html'
     success_url = reverse_lazy('rede:home')
 
-    fields = ('poltrona','viagem')
+    fields = ('poltrona','viagem',)
+
+    def get_context_data(self, **kwargs):
+
+        context = super(BilheteCreateView, self).get_context_data(**kwargs)
+
+        print context['form'].visible_fields()
+
+        return context

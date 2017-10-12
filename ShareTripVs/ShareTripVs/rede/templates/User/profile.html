@@ -14,8 +14,10 @@
                         <img src="{% static 'img/No_image_available.svg'%}" height="120px">
                     {% endif %}
                 </div>
-                <a class="btn btn-default" href="index.html" style="float: right; margin: 20px">EDITAR INFORMAÇÕES</a>
-                    
+
+                {% if object.pk == request.user.pk %}
+                    <a class="btn btn-default" href="editar" style="float: right; margin: 20px">EDITAR INFORMAÇÕES</a>
+                {% endif %}
                 
                 <div class="panel" style=" margin-left:14%; margin-right:20%; margin-top:20px">
                     <h3 style="font-size:1.3rem; margin-bottom:unset">
@@ -28,13 +30,26 @@
                 <div class="panel" style=" margin-left:14%; margin-right:20px; margin-top:8px">
                     Email: {{object.email}}
                 </div>
-                <div class="panel" style=" margin-left:14%; margin-right:20px; margin-top:8px">
-                    CPF: {{object.cpf}}
-                </div>
                 <div class="panel" style=" margin-left:14% ; margin-right:20px; margin-top:8px; padding-left: 1%">
                     Telefone: {{object.telefone}}
                 </div>
                 <br>
+            </div>
+            <div class="panel panel-group" style="width:100%">
+                <div class="panel panel-heading" >
+                    <h3 style="margin-bottom: 10px;">Viagens</h3>
+                </div>
+                <div class="panel panel-body">
+                    {% for bilhete in viagens %}
+                        {{bilhete.viagem.origem}}, {{bilhete.viagem.destino}}, {{bilhete.viagem.data}}  
+                    {% if request.user == object%}
+                        <a style="float:right" href="{% url 'rede:apagaBilhete' bilhete.pk %}"> <img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDMxLjExMyAzMS4xMTMiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMxLjExMyAzMS4xMTM7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiPgo8bGluZSBzdHlsZT0iZmlsbDpub25lO3N0cm9rZTojMTA4MUUwO3N0cm9rZS13aWR0aDoyO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgeDE9IjMwLjQwNiIgeTE9IjAuNzA3IiB4Mj0iMC43MDciIHkyPSIzMC40MDYiLz4KPGxpbmUgc3R5bGU9ImZpbGw6bm9uZTtzdHJva2U6IzEwODFFMDtzdHJva2Utd2lkdGg6MjtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIHgxPSIzMC40MDYiIHkxPSIzMC40MDYiIHgyPSIwLjcwNyIgeTI9IjAuNzA3Ii8+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=" height="25px"/></a>
+                    {% endif %}
+                    {% empty %}
+                        Não há viagens para serem mostradas
+                    {% endfor %}
+
+                </div>
             </div>
         </div>
     </div>

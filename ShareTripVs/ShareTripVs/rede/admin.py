@@ -12,13 +12,13 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 # Register your models here.
 
 class UserAdmin(auth_UserAdmin):
-    list_display = ('first_name', 'cpf')
+    list_display = ('first_name',)
     add_form = UserAdminCreationForm
     form = UserAdminChangeForm
     def get_fieldsets(self, request, obj=None):
         fieldsets = super(UserAdmin,self).get_fieldsets(request,obj)
         if obj:
-            fieldsets = fieldsets + ((_('Outras Informacoes'), {'fields': ('telefone', 'cpf','foto')}),)
+            fieldsets = fieldsets + ((_('Outras Informacoes'), {'fields': ('telefone','foto')}),)
         return fieldsets
 
 admin.site.register(models.User, UserAdmin)
