@@ -24,14 +24,6 @@ class UserAdmin(auth_UserAdmin):
 admin.site.register(models.User, UserAdmin)
 
 #===============================================================================
-# Onibus
-#===============================================================================
-class OnibusAdmin(admin.ModelAdmin):
-    list_display = ('modelo',)
-
-admin.site.register(models.Onibus, OnibusAdmin)
-
-#===============================================================================
 # Empresa
 #===============================================================================
 class EmpresaAdmin(admin.ModelAdmin):
@@ -63,3 +55,11 @@ class SolicitacaoAdmin(admin.ModelAdmin):
     list_display = ('de', 'para')
 
 admin.site.register(models.Solicitacao, SolicitacaoAdmin)
+
+#===============================================================================
+# Cidade
+#===============================================================================
+class CidadeAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'estado')
+
+admin.site.register(models.Cidade, CidadeAdmin)

@@ -1,6 +1,7 @@
 ﻿{% extends 'base.html' %}
 
 {% load widget_tweaks %}
+{% load tz %}
 
 {% block content %}
 
@@ -9,34 +10,66 @@
     <div class="container">
         <div class="row" style="color:black;">
             <div class="col-md-12 mx-auto">
-            <div class="panel panel-default panel-body" >
+                <div class="panel panel-default panel-body" >
+                    <form class="panel panel-group" id="form" method="post">
+                        {% csrf_token %}
 
+                        
 
-                <form  method="post">
-                    
-                    <div class="form-control">
-                        <label for="poltrona">Poltrona: </label>
-                        {% render_field form.visible_fields.0 class="form-control" min="0" max="42" style="width: 10%;display: unset;"%}
-                        <!--<input type="number" name="poltrona" min="0" max="42" />-->
-                    </div>
-                    <br />
-                    
+                        <div class="panel panel-default panel-body" style="width:20%">
+                            <label for="poltrona">Poltrona: </label>
+                            {% render_field form.visible_fields.0 class="form-control" min="0" max="42" style="width: 60%;display: unset;"%}
+                        </div>
 
-                    <div class="form-control">
-                        <label for="origem"> Origem: </label>
-                        <input type="text" name="origem" />
-                        <label for="destino"> Destino: </label>
-                        <input type="text" name="destino" />
-                    </div>
-                    <br />
-                    <button type="submit" class="btn btn-default" style="float:right">
-                        confirmar
-                    </button>
-                    <br />
-                    <br />
-                </form>
-                
-            </div>
+                        <div class="panel panel-default panel-body">
+                            <label for="origem"> Origem: </label>
+                            <select class="form-control" style="width:unset; display:unset" name="origem">
+                                {% for cidade in cidades %}
+                                    <option value="{{cidade.pk}}">{{cidade}}</option>
+                                {% empty %}
+                                    <option>algo deu errado</option>
+                                {% endfor %}
+                            </select>
+                        
+                            <label for="destino"> Destino: </label>
+                            <select class="form-control" style="width:unset; display:unset" name="destino">
+                                {% for cidade in cidades %}
+                                    <option value="{{cidade.pk}}">{{cidade}}</option>
+                                {% empty %}
+                                    <option>algo deu errado</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="panel panel-default panel-body" >
+                            <label for="data"> Data: </label>
+                            <input name="data" form="form" class="form-control" style="width:unset; display:unset" type="text" placeholder="{{tempo.day}}/{{tempo.month}}/{{tempo.year}}"/>
+                            <label for="hora"> Hora: </label>
+                            <input name="hora" form="form" class="form-control" style="width:unset; display:unset" type="text" placeholder="{{tempo.hour}}:{{tempo.minute}}" />
+                        </div>
+
+                        <div class="panel panel-default panel-body">
+                            <label for="empresa"> Empresa:</label>
+                            <select class="form-control" style="width:unset; display:unset" name="empresa">
+                                {% for empresa in empresas %}
+                                    <option value="{{empresa.pk}}">{{empresa}}</option>
+                                {% empty %}
+                                    <option>algo deu errado</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <br />
+
+                            <button type="submit" class="btn btn-default" style="float:right">
+                                confirmar
+                            </button>
+                        <br />
+                        <br />
+
+                        
+                    </form>
+                </div>
            </div>
         </div>
     </div>

@@ -1,0 +1,39 @@
+﻿{% extends 'base.html' %}
+
+{% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.9.0/bootstrap-slider.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.9.0/css/bootstrap-slider.css" />
+ <div class="intro-body" style="margin-top:10%; font-size:1rem">
+            <div class="container">
+                <div class="row" style="color:white">
+                    
+                    <div class="col-md-7 mx-auto">
+
+                        <div class="form-group">
+  <label>input right</label>
+
+    <!-- add the slider-with-input class to the input-group div block -->
+    <div class="input-group slider-with-input">
+      <input id="slider-right" type="text" data-slider-min="1999" data-slider-max="2016" data-slider-step="1" data-slider-value="2015" data-slider-tooltip="hide"/>
+
+      <!-- the span with the slider-input-* contains the input field -->
+      <span class="slider-input-right">
+        <input type="text" class="form-control">
+      </span>
+    </div>
+  </div>
+
+  <script>
+    $('#slider-right').slider()
+
+    // initializes the input fields
+    $('#slider-right').sliderTextInput()
+  </script>
+
+                        </div>
+                    </div>
+                </div>
+     </div>
+
+
+{% endblock %}

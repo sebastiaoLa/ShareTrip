@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from datetime import datetime
 
 from django.db import models
+from django.db.models import Q
 
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator
@@ -64,21 +65,6 @@ class Solicitacao(models.Model):
         verbose_name_plural = 'solicitacoes'
         ordering = ["data",]
 
-class Onibus(models.Model):
-
-    modelo = models.CharField('Modelo',
-    max_length=255)
-
-    def __str__(self):
-        return "%s" % (self.modelo)
-
-    def __unicode__(self):
-        return unicode("%s" % (self.modelo))
-
-    class Meta:
-        verbose_name = 'onibus'
-        verbose_name_plural = 'onibus'
-        ordering = ["modelo"]
 
 class Empresa(models.Model):
 
@@ -112,10 +98,6 @@ class Viagem(models.Model):
         related_name = "Empresa"
     )
 
-    onibus = models.ForeignKey('Onibus',
-        on_delete=models.CASCADE,
-        related_name = "Onibus"
-    )
 
     data = models.DateTimeField('Data',
         default=now)
@@ -155,37 +137,17 @@ class Bilhete(models.Model):
         verbose_name_plural = 'bilhetes'
         ordering = ["passageiro"]
 
-
-class Estado(models.Model):
-    nome = models.CharField('estado',
-                            max_length=255)
-
-    sigla = models.CharField('sigla',
-                             max_length=3)
-
-    def __str__(self):
-        return "%s" % (self.sigla)
-
-    def __unicode__(self):
-        return unicode("%s" % (self.sigla))
-
-    class Meta:
-        verbose_name = 'estado'
-        verbose_name_plural = 'estados'
-        ordering = ["nome"]
-
 class Cidade(models.Model):
     nome = models.CharField('nome',
                             max_length=255)
 
-    estado = models.ForeignKey('Estado',
-                               on_delete=models.CASCADE,
-                               related_name='estado')
+    estado =models.CharField('Estado',
+                            max_length=255)
     def __str__(self):
-        return "%s (%s)" % (self.nome,self.estado.sigla)
+        return "%s (%s)" % (self.nome,self.estado)
 
     def __unicode__(self):
-        return unicode("%s (%s)" % (self.nome,self.estado.sigla))
+        return unicode("%s (%s)" % (self.nome,self.estado))
 
     class Meta:
         verbose_name = 'cidade'

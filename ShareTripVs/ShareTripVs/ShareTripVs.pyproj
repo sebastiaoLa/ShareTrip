@@ -38,6 +38,9 @@
     <Compile Include="rede\models.py" />
     <Compile Include="rede\tests.py" />
     <Compile Include="rede\urls.py" />
+    <Compile Include="rede\utils.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="rede\views.py" />
     <Compile Include="rede\__init__.py" />
     <Compile Include="ShareTripVs\__init__.py" />
@@ -145,6 +148,7 @@
     <Content Include="rede\templates\User\home.html" />
     <Content Include="rede\templates\User\index.html" />
     <Content Include="rede\templates\User\index0.html" />
+    <Content Include="rede\templates\User\test.html" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>

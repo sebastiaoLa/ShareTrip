@@ -1,6 +1,32 @@
 {% extends 'base.html' %}
 
 {% block navbar %}
+
+        <script>
+            $(document).ready(function(){
+                $("#toggleAmigos").click(function(){
+                    $("#add").toggle(1000);
+                    $("#toggleAmigos").toggle(1000);
+                    $("#goAmigos").toggle(1000);
+                });
+            });
+            $(document).ready(function(){
+                $("#toggleBack").click(function(){
+                    $("#add").toggle(1000);
+                    $("#toggleAmigos").toggle(1000);
+                    $("#goAmigos").toggle(1000);
+                });
+            });
+
+
+            $('#sucessImg').ready(function () {
+                $("#sucessImg").toggle(1000);
+                setTimeout(function(){
+                    $("#sucessImg").toggle(1000);
+                }, 5000);
+                
+            });
+        </script>
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color:black" id="mainNav">
         <div class="container">
             {% if request.user.is_authenticated %}
@@ -107,7 +133,7 @@
                                     
                                     {% for i in viagens %}
                                         {{i.viagem.origem}}, {{i.viagem.destino}}, {{i.viagem.data}}
-                                        <a style="float:right" href="{% url 'rede:apagaBilhete' i.pk %}"> <img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDMxLjExMyAzMS4xMTMiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMxLjExMyAzMS4xMTM7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiPgo8bGluZSBzdHlsZT0iZmlsbDpub25lO3N0cm9rZTojMTA4MUUwO3N0cm9rZS13aWR0aDoyO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgeDE9IjMwLjQwNiIgeTE9IjAuNzA3IiB4Mj0iMC43MDciIHkyPSIzMC40MDYiLz4KPGxpbmUgc3R5bGU9ImZpbGw6bm9uZTtzdHJva2U6IzEwODFFMDtzdHJva2Utd2lkdGg6MjtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIHgxPSIzMC40MDYiIHkxPSIzMC40MDYiIHgyPSIwLjcwNyIgeTI9IjAuNzA3Ii8+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=" height="25px"/></a>
+                                        <a style="float:right" href="{% url 'rede:apagaBilhete' i.pk %}"> <img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDMxLjExMyAzMS4xMTMiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMxLjExMyAzMS4xMTM7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiPgo8bGluZSBzdHlsZT0iZmlsbDpub25lO3N0cm9rZTojMTA4MUUwO3N0cm9rZS13aWR0aDoyO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgeDE9IjMwLjQwNiIgeTE9IjAuNzA3IiB4Mj0iMC43MDciIHkyPSIzMC40MDYiLz4KPGxpbmUgc3R5bGU9ImZpbGw6bm9uZTtzdHJva2U6IzEwODFFMDtzdHJva2Utd2lkdGg6MjtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIHgxPSIzMC40MDYiIHkxPSIzMC40MDYiIHgyPSIwLjcwNyIgeTI9IjAuNzA3Ii8+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=" height="25px"/></a><br />
                                     {% empty %}
                                         Não há viagens para mostrar
                                     {% endfor %}
@@ -115,7 +141,28 @@
                             </div>
                             <div class="panel panel-default ">
                                 <div class="panel-heading">
-                                    Amigos <a style="float:right" href="criarViagem"><img height="25px" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQyIDQyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0MiA0MjsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxwYXRoIHN0eWxlPSJmaWxsOiMyM0EyNEQ7IiBkPSJNMzcuMDU5LDE2SDI2VjQuOTQxQzI2LDIuMjI0LDIzLjcxOCwwLDIxLDBzLTUsMi4yMjQtNSw0Ljk0MVYxNkg0Ljk0MUMyLjIyNCwxNiwwLDE4LjI4MiwwLDIxICBzMi4yMjQsNSw0Ljk0MSw1SDE2djExLjA1OUMxNiwzOS43NzYsMTguMjgyLDQyLDIxLDQyczUtMi4yMjQsNS00Ljk0MVYyNmgxMS4wNTlDMzkuNzc2LDI2LDQyLDIzLjcxOCw0MiwyMVMzOS43NzYsMTYsMzcuMDU5LDE2eiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" /></a>
+                                    Amigos 
+                                    {% if UsernameSucesso == 'True' %}
+                                        <span hidden id="sucessImg">
+                                            <img height="25px" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA1MTIuMDAxIDUxMi4wMDEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMi4wMDEgNTEyLjAwMTsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxwYXRoIHN0eWxlPSJmaWxsOiNDMkZCM0I7IiBkPSJNNTA1LjE4MiwxMTMuNzk1bC02NS44MzYtNjUuODM0Yy05LjA4OS05LjA5LTIzLjgyNy05LjA4OS0zMi45MTcsMEwyNTYsMTk4LjM5MmwtODQuNTk0LDg0LjU5NCAgbC02NS44MzktNjUuODM5Yy00LjM2NS00LjM2NS0xMC4yODUtNi44MTctMTYuNDU5LTYuODE3Yy02LjE3MywwLTEyLjA5NCwyLjQ1Mi0xNi40NTgsNi44MThMNi44MTgsMjgyLjk4OCAgYy05LjA5LDkuMDktOS4wOSwyMy44MjcsMCwzMi45MTdsMTQ4LjEyNCwxNDguMTMzYzQuMzYzLDQuMzY1LDEwLjI4NSw2LjgxNywxNi40NTgsNi44MTdjNi4xNzQsMCwxMi4wOTQtMi40NTMsMTYuNDU4LTYuODE3ICBsNjguMTQxLTY4LjE0MWwyNDkuMTg0LTI0OS4xODRjNC4zNjUtNC4zNjUsNi44MTgtMTAuMjg1LDYuODE4LTE2LjQ1OEM1MTEuOTk5LDEyNC4wODEsNTA5LjU0NywxMTguMTYsNTA1LjE4MiwxMTMuNzk1eiIvPgo8cGF0aCBzdHlsZT0iZmlsbDojOUNERDA1OyIgZD0iTTE1NC45NDIsNDY0LjAzOWM0LjM2Myw0LjM2NSwxMC4yODUsNi44MTgsMTYuNDU4LDYuODE4YzYuMTc0LDAsMTIuMDk0LTIuNDUzLDE2LjQ1OC02LjgxOCAgbDY4LjE0MS02OC4xNDFWMTk4LjM5NGwtODQuNTk0LDg0LjU5NGwtNjUuODM5LTY1LjgzOWMtNC4zNjUtNC4zNjUtMTAuMjg1LTYuODE3LTE2LjQ1OC02LjgxN2MtNi4xNzMsMC0xMi4wOTQsMi40NTItMTYuNDU4LDYuODE4ICBMNi44MTgsMjgyLjk4OGMtOS4wOSw5LjA5LTkuMDksMjMuODI3LDAsMzIuOTE3TDE1NC45NDIsNDY0LjAzOXoiLz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==" /> tudo certo
+                                        </span>
+                                    {% elif UsernameSucesso == 'False' %}
+                                        <span hidden id="sucessImg">
+                                            <img height="25px" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA1MTIuMDAzIDUxMi4wMDMiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMi4wMDMgNTEyLjAwMzsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxwYXRoIHN0eWxlPSJmaWxsOiM5QkM5RkY7IiBkPSJNNTA0LjA5NSwzODkuNTg5TDM3MC41MDYsMjU2bDEzMy41ODktMTMzLjU5MWM1LjA2My01LjA2MSw3LjkwNi0xMS45MjYsNy45MDYtMTkuMDg1ICBjMC03LjE1OC0yLjg0My0xNC4wMjQtNy45MDYtMTkuMDgzTDQyNy43NTcsNy45MDVjLTEwLjUzOC0xMC41MzgtMjcuNjI4LTEwLjUzOC0zOC4xNjgsMEwyNTYuMDAyLDE0MS40OTRMMTIyLjQxLDcuOTA1ICBjLTEwLjUzOC0xMC41MzgtMjcuNjI4LTEwLjUzOC0zOC4xNjgsMEw3LjkwNyw4NC4yNDFjLTEwLjU0LDEwLjU0LTEwLjU0LDI3LjYyOCwwLDM4LjE2OGwxMzMuNTg5LDEzMy41OTNMNy45MDcsMzg5LjU4OSAgYy0xMC41NCwxMC41NC0xMC41NCwyNy42MjgsMCwzOC4xNjhsNzYuMzM4LDc2LjMzOGM1LjA2MSw1LjA2MSwxMS45MjYsNy45MDYsMTkuMDg1LDcuOTA2YzcuMTU4LDAsMTQuMDI0LTIuODQ1LDE5LjA4My03LjkwNiAgbDEzMy41ODktMTMzLjU5MWwxMzMuNTg5LDEzMy41OTFjNS4wNjEsNS4wNjEsMTEuOTI2LDcuOTA2LDE5LjA4Myw3LjkwNmM3LjE1OSwwLDE0LjAyNC0yLjg0NSwxOS4wODUtNy45MDZsNzYuMzM4LTc2LjMzOCAgQzUxNC42MzcsNDE3LjIxOSw1MTQuNjM3LDQwMC4xMzEsNTA0LjA5NSwzODkuNTg5eiIvPgo8cGF0aCBzdHlsZT0iZmlsbDojNTdBNEZGOyIgZD0iTTcuOTA3LDQyNy43NTlsNzYuMzM4LDc2LjMzOGM1LjA2LDUuMDYxLDExLjkyNiw3LjkwNiwxOS4wODMsNy45MDYgIGM3LjE1OSwwLDE0LjAyNC0yLjg0NSwxOS4wODMtNy45MDZMMjU2LDM3MC41MDZWMTQxLjQ5NEwxMjIuNDEsNy45MDVjLTEwLjUzOC0xMC41NC0yNy42MjgtMTAuNTQtMzguMTY4LDBMNy45MDcsODQuMjQxICBjLTEwLjU0LDEwLjU0LTEwLjU0LDI3LjYyOCwwLDM4LjE2OGwxMzMuNTg5LDEzMy41OTNMNy45MDcsMzg5LjU4OUMtMi42MzUsNDAwLjEzMS0yLjYzNSw0MTcuMjE5LDcuOTA3LDQyNy43NTl6Ii8+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=" /> Algo deu Errado
+                                        </span>
+                                    {% endif %} 
+                                    <button id="toggleAmigos" style="float:right;border: unset;background: unset;padding: unset;cursor: pointer;" >
+                                        <img height="25px" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQyIDQyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0MiA0MjsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxwYXRoIHN0eWxlPSJmaWxsOiMyM0EyNEQ7IiBkPSJNMzcuMDU5LDE2SDI2VjQuOTQxQzI2LDIuMjI0LDIzLjcxOCwwLDIxLDBzLTUsMi4yMjQtNSw0Ljk0MVYxNkg0Ljk0MUMyLjIyNCwxNiwwLDE4LjI4MiwwLDIxICBzMi4yMjQsNSw0Ljk0MSw1SDE2djExLjA1OUMxNiwzOS43NzYsMTguMjgyLDQyLDIxLDQyczUtMi4yMjQsNS00Ljk0MVYyNmgxMS4wNTlDMzkuNzc2LDI2LDQyLDIzLjcxOCw0MiwyMVMzOS43NzYsMTYsMzcuMDU5LDE2eiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" />
+                                    </button>
+                                </div>
+                                <div class="panel-body" id="add" hidden>
+                                    <form method="post" style="display:inline">
+                                        {% csrf_token %}
+                                        <label for="username">Nome do amigo:</label>
+                                        <input class="form-control" name="username" type="text" placeholder="Username" style="display: unset;width: 55%;"/>
+                                        <button style="border: unset;background: unset;padding: unset;cursor: pointer;" ><img height="25px" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQyIDQyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0MiA0MjsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxwYXRoIHN0eWxlPSJmaWxsOiMyM0EyNEQ7IiBkPSJNMzcuMDU5LDE2SDI2VjQuOTQxQzI2LDIuMjI0LDIzLjcxOCwwLDIxLDBzLTUsMi4yMjQtNSw0Ljk0MVYxNkg0Ljk0MUMyLjIyNCwxNiwwLDE4LjI4MiwwLDIxICBzMi4yMjQsNSw0Ljk0MSw1SDE2djExLjA1OUMxNiwzOS43NzYsMTguMjgyLDQyLDIxLDQyczUtMi4yMjQsNS00Ljk0MVYyNmgxMS4wNTlDMzkuNzc2LDI2LDQyLDIzLjcxOCw0MiwyMVMzOS43NzYsMTYsMzcuMDU5LDE2eiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" /></button>
+                                    </form>
+                                    <button id="toggleBack" style="border: unset;background: unset;padding: unset;cursor: pointer;" ><img height="25px" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQ5LjY1NiA0OS42NTYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQ5LjY1NiA0OS42NTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiPgo8Zz4KCTxwb2x5Z29uIHN0eWxlPSJmaWxsOiMwMEFEOTc7IiBwb2ludHM9IjQ4LjI0MiwzNS4xMjIgNDUuNDE0LDM3Ljk1IDI0LjgyOCwxNy4zNjQgNC4yNDIsMzcuOTUgMS40MTQsMzUuMTIyIDI0LjgyOCwxMS43MDcgICIvPgoJPHBhdGggc3R5bGU9ImZpbGw6IzAwQUQ5NzsiIGQ9Ik00NS40MTQsMzkuMzYzTDI0LjgyOCwxOC43NzhMNC4yNDIsMzkuMzYzTDAsMzUuMTIxbDI0LjgyOC0yNC44MjhsMjQuODI4LDI0LjgyOEw0NS40MTQsMzkuMzYzeiAgICBNMjQuODI4LDE1Ljk1bDIwLjU4NiwyMC41ODVsMS40MTQtMS40MTRsLTIyLTIybC0yMiwyMmwxLjQxNCwxLjQxNEwyNC44MjgsMTUuOTV6Ii8+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==" /></button>
                                 </div>
                                 <div class="panel-body">
                                     {% for i in amigos %}
@@ -128,7 +175,7 @@
                             </div>
                             <div class="panel panel-default ">
                                 <div class="panel-heading">
-                                    It's a match <a style="float:right" href="criarViagem"><img height="25px" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQyIDQyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0MiA0MjsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxwYXRoIHN0eWxlPSJmaWxsOiMyM0EyNEQ7IiBkPSJNMzcuMDU5LDE2SDI2VjQuOTQxQzI2LDIuMjI0LDIzLjcxOCwwLDIxLDBzLTUsMi4yMjQtNSw0Ljk0MVYxNkg0Ljk0MUMyLjIyNCwxNiwwLDE4LjI4MiwwLDIxICBzMi4yMjQsNSw0Ljk0MSw1SDE2djExLjA1OUMxNiwzOS43NzYsMTguMjgyLDQyLDIxLDQyczUtMi4yMjQsNS00Ljk0MVYyNmgxMS4wNTlDMzkuNzc2LDI2LDQyLDIzLjcxOCw0MiwyMVMzOS43NzYsMTYsMzcuMDU5LDE2eiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" /></a>
+                                    It's a match 
                                 </div>
                                 <div class="panel-body">
                                     {% for i in amigos %}
@@ -145,5 +192,6 @@
                 </div>
             </div>
         </div>
+
     
 {% endblock %}
