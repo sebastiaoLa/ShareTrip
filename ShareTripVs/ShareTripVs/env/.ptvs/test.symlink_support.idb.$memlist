@@ -1,9 +1,0 @@
-skip_unless_symlink
-symlink
-_symlink_win32
-can_symlink
-platform
-remove_symlink
-os
-TESTFN
-unittest

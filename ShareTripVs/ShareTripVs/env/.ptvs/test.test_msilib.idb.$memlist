@@ -1,7 +1,0 @@
-Test_make_id
-os
-import_module
-msilib
-run_unittest
-test_main
-unittest

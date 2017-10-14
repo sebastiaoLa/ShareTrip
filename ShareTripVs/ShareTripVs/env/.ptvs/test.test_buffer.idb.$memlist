@@ -1,7 +1,0 @@
-copy
-pickle
-test_support
-test_main
-BufferTests
-sys
-unittest

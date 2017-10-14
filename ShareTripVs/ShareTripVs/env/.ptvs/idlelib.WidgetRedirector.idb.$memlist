@@ -1,7 +1,0 @@
-_widget_redirector
-run
-WidgetRedirector
-TclError
-print_function
-OriginalCommand
-unittest
