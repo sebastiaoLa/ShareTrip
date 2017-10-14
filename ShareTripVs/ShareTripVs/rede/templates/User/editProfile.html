@@ -8,7 +8,7 @@
 <div class="intro-body" style="margin-top:10%; font-size:1rem">
     <div class="container">
         <div class="row" style="color:black">
-            <form class="panel panel-group" method="post" style="width:100%">
+            <form class="panel panel-group" method="post" style="width:100%" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="panel panel-default" style="float:left; margin: 20px; padding: 5px">
                     {% if object.foto %}
@@ -37,10 +37,13 @@
                     Telefone: {%render_field form.visible_fields.4 placeholder=object.telefone %}
                 </div>
                 <div class="panel" style=" margin-left:14% ; margin-right:20px; margin-top:8px; padding-left: 1%">
-                    Foto: {% render_field form.visible_fields.0%}
+                    Foto: {% render_field form.visible_fields.0 accept="image/*"%}
                 <br>
+                <br />
+                <br />
             </div>
         </form>
     </div>
+</div>
 </div>
 {% endblock %}

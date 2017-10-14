@@ -184,14 +184,21 @@ class EditProfileView(generic.UpdateView):
     fields = ('foto','first_name','username','email','telefone')
 
     def get(self, request, *args, **kwargs):
-
+        print "oe"
         if self.request.user.is_anonymous():
             raise PermissionDenied
         else:
-            if self.request.user.pk != kwargs['pk']:
+            if self.request.user != models.User.objects.get(pk=kwargs['pk']):
+                print self.request.user,models.User.objects.get(pk=kwargs['pk'])
                 return redirect(reverse_lazy('rede:profile', args=(kwargs['pk'])))
                 
         return super(EditProfileView, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+
+        print request.POST
+
+        return super(EditProfileView, self).post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(EditProfileView, self).get_context_data(**kwargs)
