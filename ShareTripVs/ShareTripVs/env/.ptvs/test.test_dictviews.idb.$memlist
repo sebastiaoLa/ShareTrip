@@ -1,7 +1,0 @@
-copy
-pickle
-test_support
-collections
-DictSetTest
-test_main
-unittest
