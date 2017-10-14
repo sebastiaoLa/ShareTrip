@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
     {% block navbar %}
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="background-color:black">
       <div class="container">
         {% if request.user.is_authenticated %}
                     <a class="navbar-brand js-scroll-trigger" href="{% url 'rede:home' %}">ShareTrip</a>
@@ -23,16 +23,21 @@
     </nav>
     {% endblock %}
     {% block content %}
-    <header class="masthead">
-      <div class="intro-body">
+      <div class="intro-body backgroundHelp" style="margin-top:7%">
         <div class="container">
           <div class="row">
             <div class="col-lg-8 mx-auto">
                 <h2>Passo a passo</h2>
-              <p>Como usar o aplicativo...</p>
+              <p>Após já estar devidamente cadastrado, realize as seguintes instruções:</p>
+              <p>1- Efetue seu login na página reservada para o mesmo;</p>
+              <p>2- Acesse sua conta, conferindo os dados salvos e sua foto de perfil, evitando quaisquer imprevistos;</p>
+              <p>3- Encontre amigos, envie solicitações, acesse seu FEED, acesse e adicione suas viagens na página principal;</p>
+              <p>4- Para efetuar as solicitações, basta apenas clicar no simbolo "+", localizado na parte superior direita de Amigos, pesquisar o nome do usuário e enviar a solicitação, clicando também no simbolo "+" que será disponibilizado;</p>
+              <p>4- Para adicionar viagens, basta apenas clicar no simbolo "+", localizado na parte superior direita de Minhas Viagens, preencher corretamente as informações e adiciona-la clicando também no simbolo "+" que será disponibilizado. Suas viagens serão compartilhadas no FEED de seus amigos.</p>
+              <p> Confira o It's a Match para ficar por dentro de amigos que irão no mesmo ônibus que você ou ate mesmo ao seu lado !</p>
+              <p> Confira diariamente seu FEED e desfrute de viagens ao lado de seus amigos e conhecidos, evitando constrangimentos e tornando as viagens mais prazerosas e confortáveis. </p>
             </div>
           </div>
         </div>
       </div>
-    </header>
     {%endblock%}

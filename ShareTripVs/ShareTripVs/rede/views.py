@@ -1,4 +1,7 @@
+# -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
+
 from django.http.response import HttpResponse,HttpResponseForbidden
 from django.contrib.auth.models import AnonymousUser
 from django.shortcuts import render,redirect
@@ -46,19 +49,41 @@ class HomeView(generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         
-        context['viagens'] = models.Bilhete.objects.filter(passageiro = self.request.user)
+        amigos = self.request.user.amigos.all()
+
+        context['viagens'] = models.Bilhete.objects.filter(passageiro = self.request.user).order_by("viagem__data")
         context['adicionantes'] = models.Solicitacao.objects.filter(para=self.request.user)
-        context['amigos'] = self.request.user.amigos.all()[:5]
+        context['amigos'] = amigos[:5]
         
-        bilhetesAmigos = []
-
-        for i in context['amigos']:
-            query = models.Bilhete.object.filter(passageiro=i)
-            for l in query:
-                bilhetesAmigos += [l]
-
         
 
+        viagensOther = models.Bilhete.objects.all().order_by("viagem__data")
+        context['viagensOther'] = []
+
+        for i in viagensOther:
+            if i.passageiro != self.request.user:
+                if i.passageiro in amigos:
+                    context['viagensOther'] += [(i,(self.request.user.pk,) not in i.viagem.viagem.all().values_list('passageiro_id'))]
+        
+        
+        matchs = []
+
+        for i in viagensOther:
+            if i.passageiro != self.request.user and i.passageiro in amigos:
+                print i, "(i.viagem,) in self.request.user.passageiro.all().values_list('viagem')", (i.viagem,) in self.request.user.passageiro.all().values_list('viagem')
+                if (i.viagem.pk,) in self.request.user.passageiro.all().values_list('viagem'):
+                    bilheteUser = self.request.user.passageiro.filter(viagem=i.viagem)[0]
+                    if bilheteUser.poltrona%2==0 and bilheteUser.poltrona-1 == i.poltrona:
+                        matchs += [(True,i.passageiro,'vai do seu lado :D',i.viagem)]
+                    elif bilheteUser.poltrona%2!=0 and bilheteUser.poltrona+1 == i.poltrona:
+                        matchs += [(True,i.passageiro,'vai do seu lado :D',i.viagem)]
+                    else:
+                        matchs += [(False,i.passageiro,"vai no mesmo onibus que você",i.viagem)]
+    
+    
+        context['matchs'] = matchs
+
+        print "#########"
 
         print context
         return context
@@ -107,6 +132,14 @@ class DeleteBilheteView(generic.DeleteView):
         print context
 
         return context
+
+    def post(self, request, *args, **kwargs):
+        algo = super(DeleteBilheteView, self).post(request, *args, **kwargs)
+        
+        if len(models.Viagem.objects.filter(pk=self.object.viagem)[0].viagem.all()) == 0:
+            models.Viagem.objects.filter(pk=self.object.viagem)[0].delete()
+
+        return algo
 
 
 class DeleteAmigoView(generic.DetailView):
@@ -185,7 +218,7 @@ class BilheteCreateView(generic.CreateView):
 
         context = super(BilheteCreateView, self).get_context_data(**kwargs)
 
-        print context['form'].visible_fields()
+        print context
 
         context['cidades'] = models.Cidade.objects.all()
         context['tempo'] = timezone.make_aware(datetime.datetime.now(),timezone.get_default_timezone())
@@ -218,6 +251,91 @@ class BilheteCreateView(generic.CreateView):
         return redirect(reverse_lazy('rede:home'),ViagemSucess='True')
 
 
-class testView(generic.TemplateView):
-    
-    template_name='User/test.html'
+class BilheteCreateViewPk(generic.DetailView):
+
+    model = models.Viagem
+    template_name = 'User/CadastrarViagem.html'
+
+    def get_context_data(self, **kwargs):
+
+        context = super(BilheteCreateViewPk, self).get_context_data(**kwargs)
+
+        print context
+
+        context['cidades'] = models.Cidade.objects.all()
+        context['tempo'] = timezone.make_aware(datetime.datetime.now(),timezone.get_default_timezone())
+        context['empresas'] = models.Empresa.objects.all()
+        
+        return context
+
+    def post(self, request, *args, **kwargs):
+        
+        print request.POST
+
+        dia = int(request.POST['data'][:2])
+        mes = int(request.POST['data'][3:5])
+        ano = int(request.POST['data'][6:10])
+        hora = int(request.POST['hora'][:2])
+        minutos = int(request.POST['hora'][3:5])
+
+        datatempo = timezone.make_aware(datetime.datetime(ano,mes,dia,hora,minutos), timezone.get_current_timezone())
+        
+        viagem = models.Viagem.objects.filter(origem= request.POST['origem'],destino=request.POST['destino'] , data=datatempo, empresa = models.Empresa.objects.get(pk=request.POST['empresa']))
+
+        if len(viagem)>0:
+            models.Bilhete(poltrona=request.POST['poltrona'], passageiro= self.request.user, viagem=viagem[0]).save()
+        else:
+            viagem = models.Viagem(origem=models.Cidade.objects.get(pk=request.POST['origem']), destino=models.Cidade.objects.get(pk=request.POST['destino']), data=datatempo, empresa = models.Empresa.objects.get(pk=request.POST['empresa']))
+            viagem.save()
+            models.Bilhete(poltrona=request.POST['poltrona'], passageiro= self.request.user, viagem=viagem).save()
+
+        
+        return redirect(reverse_lazy('rede:home'),ViagemSucess='True')
+
+
+class EditBilheteView(generic.DetailView):
+    template_name = 'User/editarViagem.html'
+
+    model = models.Bilhete
+
+    def get(self, request, *args, **kwargs):
+
+        if self.request.user.is_anonymous():
+            raise PermissionDenied
+        else:
+            if self.request.user.pk != models.Bilhete.objects.get(pk=kwargs['pk']).passageiro.pk:
+                raise PermissionDenied
+                
+        return super(EditBilheteView, self).get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(EditBilheteView, self).get_context_data(**kwargs)
+
+        context['cidades'] = models.Cidade.objects.all()
+        context['empresas'] = models.Empresa.objects.all()
+
+        return context
+
+
+    def post(self, request, *args, **kwargs):
+        
+        objeto = models.Bilhete.objects.get(pk = request.POST['objeto'])
+
+        dia = int(request.POST['data'][:2])
+        mes = int(request.POST['data'][3:5])
+        ano = int(request.POST['data'][6:10])
+        hora = int(request.POST['hora'][:2])
+        minutos = int(request.POST['hora'][3:5])
+
+        datatempo = timezone.make_aware(datetime.datetime(ano,mes,dia,hora,minutos), timezone.get_current_timezone())
+        
+        viagem = models.Viagem.objects.filter(origem= request.POST['origem'],destino=request.POST['destino'] , data=datatempo, empresa = models.Empresa.objects.get(pk=request.POST['empresa']))
+        
+        objeto.viagem = viagem[0]
+        objeto.poltrona = request.POST['poltrona']
+        objeto.passageiro = self.request.user
+
+        objeto.save()
+
+        return redirect(reverse_lazy('rede:home'))
+

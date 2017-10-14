@@ -13,19 +13,17 @@
                 <div class="panel panel-default panel-body" >
                     <form class="panel panel-group" id="form" method="post">
                         {% csrf_token %}
-
-                        
-
+                        <input hidden type="text" value="{{object.pk}}" name="objeto" />
                         <div class="panel panel-default panel-body">
                             <label for="poltrona">Poltrona: </label>
-                            <input name="poltrona" style="width:auto; display: inline;" min="0" max="42" required="" class="form-control" id="id_poltrona" type="number">
+                            <input value="{{object.poltrona}}" name="poltrona" style="width:auto; display: inline;" min="0" max="42" required="" class="form-control" id="id_poltrona" type="number">
                         </div>
 
                         <div class="panel panel-default panel-body">
                             <label for="origem"> Origem: </label>
                             <select class="form-control" style="width:auto; display:inline" name="origem">
                                 {% for cidade in cidades %}
-                                    <option {%if object %}{%if object.origem == cidade %} selected="selected" {% endif %} {% endif %} value="{{cidade.pk}}">{{cidade}}</option>
+                                    <option {%if object.viagem.origem == cidade %} selected="selected"  {% endif %} value="{{cidade.pk}}">{{cidade}}</option>
                                 {% empty %}
                                     <option>algo deu errado</option>
                                 {% endfor %}
@@ -34,7 +32,7 @@
                             <label for="destino"> Destino: </label>
                             <select class="form-control" style="width:auto; display:inline" name="destino">
                                 {% for cidade in cidades %}
-                                    <option {%if object %}{%if object.destino == cidade %} selected="selected" {% endif %} {% endif %} value="{{cidade.pk}}">{{cidade}}</option>
+                                    <option {%if object.viagem.destino == cidade %} selected="selected" {% endif %} value="{{cidade.pk}}">{{cidade}}</option>
                                 {% empty %}
                                     <option>algo deu errado</option>
                                 {% endfor %}
@@ -43,16 +41,16 @@
                         
                         <div class="panel panel-default panel-body" >
                             <label for="data"> Data: </label>
-                            <input {%if object %} value="{% if object.data.day < 10 %}0{%endif%}{{object.data.day}}/{% if object.data.month < 10 %}0{%endif%}{{object.data.month}}/{{object.data.year}}" {% endif %} name="data" form="form" class="form-control" style="width:unset; display:unset" type="text" placeholder="{{tempo.day}}/{{tempo.month}}/{{tempo.year}}"/>
+                            <input value="{% if object.viagem.data.day < 10 %}0{%endif%}{{object.viagem.data.day}}/{% if object.viagem.data.month < 10 %}0{%endif%}{{object.viagem.data.month}}/{{object.viagem.data.year}}" name="data" form="form" class="form-control" style="width:unset; display:unset" type="text" placeholder="{{tempo.day}}/{{tempo.month}}/{{tempo.year}}"/>
                             <label for="hora"> Hora: </label>
-                            <input {% if object %} value="{% if object.data.hour < 10 %}0{%endif%}{{object.data.hour}}:{% if object.data.minute < 10 %}0{%endif%}{{object.data.minute}}" {% endif %} name="hora" form="form" class="form-control" style="width:unset; display:unset" type="text" placeholder="{{tempo.hour}}:{{tempo.minute}}" />
+                            <input value="{% if object.viagem.data.hour < 10 %}0{%endif%}{{object.viagem.data.hour}}:{% if object.viagem.data.minute < 10 %}0{%endif%}{{object.viagem.data.minute}}" name="hora" form="form" class="form-control" style="width:unset; display:unset" type="text" placeholder="{{tempo.hour}}:{{tempo.minute}}" />
                         </div>
 
                         <div class="panel panel-default panel-body">
                             <label for="empresa"> Empresa:</label>
                             <select class="form-control" style="width:unset; display:unset" name="empresa">
                                 {% for empresa in empresas %}
-                                    <option {%if object %}{%if object.empresa == empresa %} selected="selected" {% endif %} {% endif %} value="{{empresa.pk}}">{{empresa}}</option>
+                                    <option {%if object.empresa == empresa %} selected="selected" {% endif %}  value="{{empresa.pk}}">{{empresa}}</option>
                                 {% empty %}
                                     <option>algo deu errado</option>
                                 {% endfor %}

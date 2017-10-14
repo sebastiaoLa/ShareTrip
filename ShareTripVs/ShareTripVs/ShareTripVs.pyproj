@@ -139,6 +139,7 @@
     <Content Include="rede\templates\base1.html" />
     <Content Include="rede\templates\help\help.html" />
     <Content Include="rede\templates\index.html" />
+    <Content Include="rede\templates\User\editarViagem.html" />
     <Content Include="rede\templates\User\cadastro.html" />
     <Content Include="rede\templates\User\CadastrarViagem.html" />
     <Content Include="rede\templates\User\editProfile.html" />
