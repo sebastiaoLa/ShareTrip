@@ -346,3 +346,29 @@ class EditBilheteView(generic.DetailView):
 
         return redirect(reverse_lazy('rede:home'))
 
+class DeleteProfileView(generic.DeleteView):
+    template_name = 'User/deleteConta.html'
+
+    model = models.User
+
+    success_url = reverse_lazy('rede:index')
+
+    def get(self, request, *args, **kwargs):
+        print "oe"
+        if self.request.user.is_anonymous():
+            raise PermissionDenied
+        else:
+            if self.request.user != models.User.objects.get(pk=kwargs['pk']):
+                
+                return PermissionDenied
+                
+        return super(DeleteProfileView, self).get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+
+        context = super(DeleteProfileView, self).get_context_data(**kwargs)
+
+        print context
+
+        return context
+

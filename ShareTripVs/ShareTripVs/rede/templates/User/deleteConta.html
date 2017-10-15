@@ -1,0 +1,21 @@
+﻿{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="intro-body" style="margin-top:10%; font-size:1rem">
+    <div class="container">
+        <div class="row" style="color:black">
+            <div class="panel panel-default panel-body">
+                <form action="" method="post">{% csrf_token %}
+                    <input name="user" value="{{object.pk}}" type="hidden" />
+                    <p>Tem certeza que deseja encerrar a sua conta?</p>
+                    <p>(essa ação é permanente :/ )</p>
+                    <a class="btn btn-primary" href="{% url 'rede:home'%}">Cancelar</a>
+                    <button class=" btn btn-default" type="submit"> Confirmar </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

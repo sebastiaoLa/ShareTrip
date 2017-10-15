@@ -18,6 +18,7 @@ urlpatterns = [url(r'^$', auth_views.LoginView.as_view(template_name="User/index
     url(r'^editarViagem/(?P<pk>[0-9]+)/$', views.EditBilheteView.as_view(), name='editViagem'),
     url(r'^deleteBilhete/(?P<pk>[0-9]+)/$', views.DeleteBilheteView.as_view(), name='apagaBilhete'),
     url(r'^deleteAmizade/(?P<pk>[0-9]+)/$', views.DeleteAmigoView.as_view(), name='apagaAmigo'),
+    url(r'^deleteProfile/(?P<pk>[0-9]+)/$', views.DeleteProfileView.as_view(), name='deletaProfile'),
     url(r'^profile/(?P<pk>[0-9]+)/$', views.DetailProfileView.as_view(), name='profile'),
     url(r'^profile/(?P<pk>[0-9]+)/editar/$', views.EditProfileView.as_view(), name='editProfile'),
     ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

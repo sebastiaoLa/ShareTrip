@@ -19,10 +19,13 @@
                 </div>
 
                 {% if object.pk == request.user.pk %}
-                    <button class="btn btn-default" type="submit" style="float: right; margin: 20px">SALVAR INFORMAÇÕES</button>
+                    <span style="float: right; margin:20px">
+                        <button class="btn btn-default" type="submit">SALVAR INFORMAÇÕES</button>
+                        <a class="btn btn-danger" href="{% url 'rede:deletaProfile' request.user.pk%}"> ENCERRAR CONTA </a>
+                    </span>
                 {% endif %}
                 
-                <div class="panel" style=" margin-left:14%; margin-right:20%; margin-top:20px">
+                <div class="panel" style=" margin-left:14%; margin-right:34%; margin-top:20px">
                     <h3 style="font-size:1.3rem; margin-bottom:unset">
                         {%render_field form.visible_fields.1 placeholder=object.first_name %}
                     </h3>

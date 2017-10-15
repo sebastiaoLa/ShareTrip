@@ -49,9 +49,21 @@
                                   <!--<input type="password" name= 'senha1' class="form-control" placeholder="Sua senha...">-->
                               </div>
                           </div>
-                    <br>
-                    <button type="submit" class="btn btn-default login"> LOGIN </button>
-                  </form>
+                        <br>
+                      {% for field in form.visible_fields %}
+                        <ul>
+                            {% for error in field.errors %}
+                                
+                            <li style="color:red">
+                                <span class="help-block">{{ error }}</span><br />
+                            </li>
+                                    
+                            {% endfor %}
+                        </ul>
+                        {% endfor %}
+
+                        <button type="submit" class="btn btn-default login"> LOGIN </button>
+                    </form>
 
                 </center>
 
