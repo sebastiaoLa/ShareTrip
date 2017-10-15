@@ -107,6 +107,9 @@ class HomeView(generic.TemplateView):
                 soli.delete()
 
         if 'username' in self.request.POST.keys():
+            ad = models.User.objects.filter(username=request.POST['username'])
+            if len(ad)<=0:
+                return self.get(request,UsernameSucesso='False',*args,**kwargs)
             if self.request.user == models.User.objects.get(username=request.POST['username']):
                 return self.get(request,UsernameSucesso='False',*args,**kwargs)
             elif len(models.Solicitacao.objects.filter(de=self.request.user, para=models.User.objects.get(username=request.POST['username'])))>0:
