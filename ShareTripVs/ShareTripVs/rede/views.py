@@ -239,26 +239,28 @@ class BilheteCreateView(generic.CreateView):
     def post(self, request, *args, **kwargs):
         
         print request.POST
+        try:
+            dia = int(request.POST['data'][:2])
+            mes = int(request.POST['data'][3:5])
+            ano = int(request.POST['data'][6:10])
+            hora = int(request.POST['hora'][:2])
+            minutos = int(request.POST['hora'][3:5])
 
-        dia = int(request.POST['data'][:2])
-        mes = int(request.POST['data'][3:5])
-        ano = int(request.POST['data'][6:10])
-        hora = int(request.POST['hora'][:2])
-        minutos = int(request.POST['hora'][3:5])
-
-        datatempo = timezone.make_aware(datetime.datetime(ano,mes,dia,hora,minutos), timezone.get_current_timezone())
+            datatempo = timezone.make_aware(datetime.datetime(ano,mes,dia,hora,minutos), timezone.get_current_timezone())
         
-        viagem = models.Viagem.objects.filter(origem= request.POST['origem'],destino=request.POST['destino'] , data=datatempo, empresa = models.Empresa.objects.get(pk=request.POST['empresa']))
+            viagem = models.Viagem.objects.filter(origem= request.POST['origem'],destino=request.POST['destino'] , data=datatempo, empresa = models.Empresa.objects.get(pk=request.POST['empresa']))
 
-        if len(viagem)>0:
-            models.Bilhete(poltrona=request.POST['poltrona'], passageiro= self.request.user, viagem=viagem[0]).save()
-        else:
-            viagem = models.Viagem(origem=models.Cidade.objects.get(pk=request.POST['origem']), destino=models.Cidade.objects.get(pk=request.POST['destino']), data=datatempo, empresa = models.Empresa.objects.get(pk=request.POST['empresa']))
-            viagem.save()
-            models.Bilhete(poltrona=request.POST['poltrona'], passageiro= self.request.user, viagem=viagem).save()
+            if len(viagem)>0:
+                models.Bilhete(poltrona=request.POST['poltrona'], passageiro= self.request.user, viagem=viagem[0]).save()
+            else:
+                viagem = models.Viagem(origem=models.Cidade.objects.get(pk=request.POST['origem']), destino=models.Cidade.objects.get(pk=request.POST['destino']), data=datatempo, empresa = models.Empresa.objects.get(pk=request.POST['empresa']))
+                viagem.save()
+                models.Bilhete(poltrona=request.POST['poltrona'], passageiro= self.request.user, viagem=viagem).save()
 
         
-        return redirect(reverse_lazy('rede:home'),ViagemSucess='True')
+            return redirect(reverse_lazy('rede:home'),ViagemSucess='True')
+        except:
+            return redirect(reverse_lazy('rede:home'),ViagemSucess='False')
 
 
 class BilheteCreateViewPk(generic.DetailView):
@@ -282,25 +284,29 @@ class BilheteCreateViewPk(generic.DetailView):
         
         print request.POST
 
-        dia = int(request.POST['data'][:2])
-        mes = int(request.POST['data'][3:5])
-        ano = int(request.POST['data'][6:10])
-        hora = int(request.POST['hora'][:2])
-        minutos = int(request.POST['hora'][3:5])
+        try:
 
-        datatempo = timezone.make_aware(datetime.datetime(ano,mes,dia,hora,minutos), timezone.get_current_timezone())
+            dia = int(request.POST['data'][:2])
+            mes = int(request.POST['data'][3:5])
+            ano = int(request.POST['data'][6:10])
+            hora = int(request.POST['hora'][:2])
+            minutos = int(request.POST['hora'][3:5])
+
+            datatempo = timezone.make_aware(datetime.datetime(ano,mes,dia,hora,minutos), timezone.get_current_timezone())
         
-        viagem = models.Viagem.objects.filter(origem= request.POST['origem'],destino=request.POST['destino'] , data=datatempo, empresa = models.Empresa.objects.get(pk=request.POST['empresa']))
+            viagem = models.Viagem.objects.filter(origem= request.POST['origem'],destino=request.POST['destino'] , data=datatempo, empresa = models.Empresa.objects.get(pk=request.POST['empresa']))
 
-        if len(viagem)>0:
-            models.Bilhete(poltrona=request.POST['poltrona'], passageiro= self.request.user, viagem=viagem[0]).save()
-        else:
-            viagem = models.Viagem(origem=models.Cidade.objects.get(pk=request.POST['origem']), destino=models.Cidade.objects.get(pk=request.POST['destino']), data=datatempo, empresa = models.Empresa.objects.get(pk=request.POST['empresa']))
-            viagem.save()
-            models.Bilhete(poltrona=request.POST['poltrona'], passageiro= self.request.user, viagem=viagem).save()
+            if len(viagem)>0:
+                models.Bilhete(poltrona=request.POST['poltrona'], passageiro= self.request.user, viagem=viagem[0]).save()
+            else:
+                viagem = models.Viagem(origem=models.Cidade.objects.get(pk=request.POST['origem']), destino=models.Cidade.objects.get(pk=request.POST['destino']), data=datatempo, empresa = models.Empresa.objects.get(pk=request.POST['empresa']))
+                viagem.save()
+                models.Bilhete(poltrona=request.POST['poltrona'], passageiro= self.request.user, viagem=viagem).save()
 
         
-        return redirect(reverse_lazy('rede:home'),ViagemSucess='True')
+            return redirect(reverse_lazy('rede:home'),ViagemSucess='True')
+        except:
+            return redirect(reverse_lazy('rede:home'),ViagemSucess='False')
 
 
 class EditBilheteView(generic.DetailView):
