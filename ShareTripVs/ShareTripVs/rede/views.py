@@ -245,6 +245,9 @@ class BilheteCreateView(generic.CreateView):
             minutos = int(request.POST['hora'][3:5])
 
             datatempo = timezone.make_aware(datetime.datetime(ano,mes,dia,hora,minutos), timezone.get_current_timezone())
+
+            if datatempo<timezone.make_aware(datetime.datetime.now(),timezone.get_current_timezone()):
+                return redirect(reverse_lazy('rede:home'),ViagemSucess='False')
         
             viagem = models.Viagem.objects.filter(origem= request.POST['origem'],destino=request.POST['destino'] , data=datatempo, empresa = models.Empresa.objects.get(pk=request.POST['empresa']))
 
@@ -292,6 +295,9 @@ class BilheteCreateViewPk(generic.DetailView):
 
             datatempo = timezone.make_aware(datetime.datetime(ano,mes,dia,hora,minutos), timezone.get_current_timezone())
         
+            if datatempo<timezone.make_aware(datetime.datetime.now(),timezone.get_current_timezone()):
+                return redirect(reverse_lazy('rede:home'),ViagemSucess='False')
+
             viagem = models.Viagem.objects.filter(origem= request.POST['origem'],destino=request.POST['destino'] , data=datatempo, empresa = models.Empresa.objects.get(pk=request.POST['empresa']))
 
             if len(viagem)>0:
@@ -343,6 +349,9 @@ class EditBilheteView(generic.DetailView):
 
         datatempo = timezone.make_aware(datetime.datetime(ano,mes,dia,hora,minutos), timezone.get_current_timezone())
         
+        if datatempo<timezone.make_aware(datetime.datetime.now(),timezone.get_current_timezone()):
+                return redirect(reverse_lazy('rede:home'),ViagemSucess='False')
+
         viagem = models.Viagem.objects.filter(origem= request.POST['origem'],destino=request.POST['destino'] , data=datatempo, empresa = models.Empresa.objects.get(pk=request.POST['empresa']))
 
         if len(viagem)<=0:

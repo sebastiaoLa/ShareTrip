@@ -38,7 +38,7 @@
     <Compile Include="rede\models.py" />
     <Compile Include="rede\tests.py" />
     <Compile Include="rede\urls.py" />
-    <Compile Include="rede\utils.py">
+    <Compile Include="utils.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="rede\views.py" />
