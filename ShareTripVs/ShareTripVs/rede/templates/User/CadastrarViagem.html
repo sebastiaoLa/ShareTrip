@@ -43,9 +43,9 @@
                         
                         <div class="panel panel-default panel-body" >
                             <label for="data"> Data: </label>
-                            <input {%if object %} value="{% if object.data.day < 10 %}0{%endif%}{{object.data.day}}/{% if object.data.month < 10 %}0{%endif%}{{object.data.month}}/{{object.data.year}}" {% endif %} name="data" form="form" class="form-control" style="width:unset; display:unset" type="text" placeholder="{{tempo.day}}/{{tempo.month}}/{{tempo.year}}"/>
+                            <input {%if object %} value="{% if object.data.day < 10 %}0{%endif%}{{object.data.day}}/{% if object.data.month < 10 %}0{%endif%}{{object.data.month}}/{{object.data.year}}" {% endif %} name="data" form="form" class="form-control" style="width:unset; display:unset" type="text" placeholder="{% if tempo.day < 10 %}0{%endif%}{{tempo.day}}/{% if tempo.month < 10 %}0{%endif%}{{tempo.month}}/{{tempo.year}}"/>
                             <label for="hora"> Hora: </label>
-                            <input {% if object %} value="{% if object.data.hour < 10 %}0{%endif%}{{object.data.hour}}:{% if object.data.minute < 10 %}0{%endif%}{{object.data.minute}}" {% endif %} name="hora" form="form" class="form-control" style="width:unset; display:unset" type="text" placeholder="{{tempo.hour}}:{{tempo.minute}}" />
+                            <input {% if object %} value="{% if object.data.hour < 10 %}0{%endif%}{{object.data.hour}}:{% if object.data.minute < 10 %}0{%endif%}{{object.data.minute}}" {% endif %} name="hora" form="form" class="form-control" style="width:unset; display:unset" type="text" placeholder="{% if tempo.hour < 10 %}0{%endif%}{{tempo.hour}}:{% if tempo.minute < 10 %}0{%endif%}{{tempo.minute}}" />
                         </div>
 
                         <div class="panel panel-default panel-body">

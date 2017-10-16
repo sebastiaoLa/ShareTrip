@@ -128,6 +128,11 @@ class DeleteBilheteView(generic.DeleteView):
 
     success_url = reverse_lazy('rede:home')
 
+    def post(self, request, *args, **kwargs):
+        goCheck()
+
+        return super(DeleteBilheteView, self).post(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         
         context = super(DeleteBilheteView, self).get_context_data(**kwargs)
@@ -136,13 +141,6 @@ class DeleteBilheteView(generic.DeleteView):
 
         return context
 
-    def post(self, request, *args, **kwargs):
-        algo = super(DeleteBilheteView, self).post(request, *args, **kwargs)
-        
-        if len(models.Viagem.objects.filter(pk=self.object.viagem)[0].viagem.all()) == 0:
-            models.Viagem.objects.filter(pk=self.object.viagem)[0].delete()
-
-        return algo
 
 
 class DeleteAmigoView(generic.DetailView):
@@ -346,12 +344,23 @@ class EditBilheteView(generic.DetailView):
         datatempo = timezone.make_aware(datetime.datetime(ano,mes,dia,hora,minutos), timezone.get_current_timezone())
         
         viagem = models.Viagem.objects.filter(origem= request.POST['origem'],destino=request.POST['destino'] , data=datatempo, empresa = models.Empresa.objects.get(pk=request.POST['empresa']))
+
+        if len(viagem)<=0:
+            origem = models.Cidade.objects.get(pk=request.POST['origem'])
+            destino = models.Cidade.objects.get(pk=request.POST['destino'])
+
+            viagem = models.Viagem(origem= origem,destino= destino, data=datatempo, empresa = models.Empresa.objects.get(pk=request.POST['empresa']))
+            viagem.save()
+            objeto.viagem = viagem
+        else:
+            objeto.viagem = viagem[0]
         
-        objeto.viagem = viagem[0]
         objeto.poltrona = request.POST['poltrona']
         objeto.passageiro = self.request.user
 
         objeto.save()
+
+        goCheck()
 
         return redirect(reverse_lazy('rede:home'))
 
@@ -381,3 +390,9 @@ class DeleteProfileView(generic.DeleteView):
 
         return context
 
+
+def goCheck():
+    a = models.Viagem.objects.all()
+    for i in a:
+        if len(i.viagem.all()) == 0:
+            i.delete()
