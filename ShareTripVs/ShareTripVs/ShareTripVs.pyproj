@@ -49,6 +49,7 @@
     <Compile Include="ShareTripVs\wsgi.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="cidades.txt" />
     <Content Include="rede\static\css\grayscale.css" />
     <Content Include="rede\static\css\grayscale.min.css" />
     <Content Include="rede\static\fonts\Cabin.css" />

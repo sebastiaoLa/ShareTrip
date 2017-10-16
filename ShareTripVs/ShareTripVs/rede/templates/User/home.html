@@ -189,6 +189,7 @@
                                     It's a match 
                                 </div>
                                 <div class="panel-body">
+
                                     <ul class="list-group">
                                     {% for w,x,y,z in matchs%}
                                         <li class="list-group-item">
@@ -200,6 +201,8 @@
                                             {% endif %}
                                             <a href={% url 'rede:profile' x.pk%}>{{x}}</a> {{y}} {{z.origem}}, {{z.destino}}, {{z.data}}
                                         </li>
+                                    {% empty %}
+                                        Você nao tem combinações
                                     {% endfor %}
                                         </ul>
                                 </div>
