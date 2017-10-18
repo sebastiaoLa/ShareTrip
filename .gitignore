@@ -1,2 +1,6 @@
 $GIT_DIR/ShareTripVs/ShareTripVs/env1
 /ShareTripVs/ShareTripVs/db.sqlite3
+ShareTripVs\ShareTripVs\media
+ShareTripVs\ShareTripVs\ShareTripVs\setting.*
+ShareTripVs/ShareTripVs/ShareTripVs/settings.py
+ShareTripVs/ShareTripVs/ShareTripVs/settings.pyc

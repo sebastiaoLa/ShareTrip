@@ -14,8 +14,7 @@
 {% endblock %}
 
 {%block content %}
-    <header class="masthead">
-      <div class="intro-body">
+      <div class=" masthead intro-body" style="padding:100px">
         <div class="container">
           <div class="row">
             <div class="col-lg-8 mx-auto">
@@ -32,16 +31,22 @@
                   <div class="form-group">
                     <div class="col-sm-5">
                               {% render_field field class="form-control" placeholder=field.label%}
-                              <ul>
+                        {%if field.errors%}
+                        <br />
+                        <div class="panel panel-default panel-body">
+                        {%endif%}
+                        <ul class="list-group">
                                 {% for error in field.errors %}
                                 
-                                    <li style="color:red">
+                                    <li class="list-group-item" style="border-color:red ;color:red">
                                         <span class="help-block">{{ error }}</span><br />
                                     </li>
                                     
                               {% endfor %}
                                   </ul>
-
+                            {%if field.errors%}
+                        </div>
+                        {%endif%}
                             <!--<input type="text" name= 'nome' class="form-control" placeholder="Digite seu nome...">-->
                             </div>
                   </div>
@@ -60,7 +65,4 @@
             </div>
           </div>
         </div>
-      </div>
-    </header>
-
 {% endblock %}

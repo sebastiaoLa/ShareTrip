@@ -4,6 +4,12 @@ from django.forms import ModelForm, PasswordInput
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm,UsernameField
 
 class UserForm(UserCreationForm):
+
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.pop("autofocus", None)
+        self.fields['first_name'].widget.attrs['autofocus']=""
+
     class Meta:
         model = User
         fields = ('first_name','username','email','telefone','password1','password2')

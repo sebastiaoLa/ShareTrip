@@ -27,6 +27,7 @@ class UserCreateView(generic.CreateView):
     def get_context_data(self, **kwargs):
         context = super(UserCreateView, self).get_context_data(**kwargs)
         context['form']['first_name'].label = "Seu nome"
+        
         return context
 
 
@@ -405,3 +406,12 @@ def goCheck():
     for i in a:
         if len(i.viagem.all()) == 0:
             i.delete()
+
+def checkPoltrona(viagem, poltrona):
+    bilhetes = viagem.viagem.all()
+
+    for i in bilhetes:
+        if i.poltrona == poltrona:
+            return False
+
+    return True
