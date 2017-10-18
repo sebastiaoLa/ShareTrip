@@ -82,9 +82,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ShareTrip',
-        'USER': 'root',
-        'PASSWORD': 'sebastian',
+        'USER': 'sebastiaoLa',
+        'PASSWORD': 'karananki',
         'HOST': 'localhost',
+        'PORT':'1234',
     }
 }
 
