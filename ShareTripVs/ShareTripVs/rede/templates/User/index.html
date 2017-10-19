@@ -166,9 +166,7 @@
                     dataType: 'json',
                     success: function (data) {
                         if(data.logou){
-                            window.location = {% url 'rede:home'%}
-                        }else{
-                            window.location = {% url 'rede:index'%}
+                            window.location = "{% url 'rede:home'%}"
                         }
                     }
                     });
