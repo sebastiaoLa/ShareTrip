@@ -26,6 +26,58 @@
     </nav>
     {% endblock %}
     {% block content %}
+
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId            : '1882376135424294',
+          autoLogAppEvents : true,
+          xfbml            : true,
+          version          : 'v2.10'
+        });
+        FB.AppEvents.logPageView();
+          FB.Event.subscribe('auth.login', 
+            function oe(response) {
+
+                FB.api('/me', function callback(response){
+                    $.ajax({
+                    type:"POST",
+                    url:" {%comment%} {% url 'rede:login-fb'%}{% endcomment%}",
+                    data: {'userFbId': response.id,
+                        'name': response.name
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if(data.logou){
+                            window.location = "{% url 'rede:home'%}"
+                        }
+                    }
+                    });
+                })
+
+                
+            }
+        );
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/pt_BR/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+            <script>
+        (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.10&appId=1882376135424294";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
     <header class="masthead">
       <div class="intro-body">
         <div class="container">
@@ -153,28 +205,7 @@
 
 
     <script type="text/javascript">
-        FB.Event.subscribe('auth.login', 
-            function oe(response) {
-
-                FB.api('/me', function callback(response){
-                    $.ajax({
-                    type:"POST",
-                    url:" {%comment%} {% url 'rede:login-fb'%}{% endcomment%}",
-                    data: {'userFbId': response.id,
-                        'name': response.name
-                    },
-                    dataType: 'json',
-                    success: function (data) {
-                        if(data.logou){
-                            window.location = "{% url 'rede:home'%}"
-                        }
-                    }
-                    });
-                })
-
-                
-            }
-        );
+        
 
         function redireciona(){
             window.location = '{% url 'rede:home'%}';
