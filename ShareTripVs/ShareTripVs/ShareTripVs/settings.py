@@ -137,3 +137,5 @@ STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
 
 MEDIA_ROOT = 'media'
 MEDIA_URL = '/media/'
+
+AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)

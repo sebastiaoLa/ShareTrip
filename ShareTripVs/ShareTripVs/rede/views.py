@@ -12,7 +12,7 @@ from django.utils import timezone
 import datetime,random,string
 from django.contrib.auth import authenticate, login
 
-
+from ShareTripVs.settings import AUTHENTICATION_BACKENDS
 from django.core.urlresolvers import reverse_lazy
 from rede import models,forms
 
@@ -425,6 +425,7 @@ def formataString(stri):
             aux += "."
         else:
             aux +=i
+    return aux
 
 def geraUsuario(usu):
     orig = usu
@@ -437,9 +438,9 @@ def geraUsuario(usu):
 
 def my_view(request):
     userid = request.POST['userFbId']
-    user = models.User.objects.get(user_fb_id=userid)
-    if user is not None:
-        login(request, user, backend=settings.settings.AUTHENTICATION_BACKENDS[0])
+    user = models.User.objects.filter(user_fb_id=userid)
+    if len(user)>0:
+        login(request, user[0], backend=AUTHENTICATION_BACKENDS[0])
         return JsonResponse({'logou':True})
     else:
         # Return an 'invalid login' error message.

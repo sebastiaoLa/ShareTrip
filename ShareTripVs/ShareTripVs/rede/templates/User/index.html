@@ -36,28 +36,49 @@
           version          : 'v2.10'
         });
         FB.AppEvents.logPageView();
-          FB.Event.subscribe('auth.login', 
-            function oe(response) {
-
-                FB.api('/me', function callback(response){
-                    $.ajax({
-                    type:"POST",
-                    url:" {%comment%} {% url 'rede:login-fb'%}{% endcomment%}",
-                    data: {'userFbId': response.id,
-                        'name': response.name
-                    },
-                    dataType: 'json',
-                    success: function (data) {
-                        if(data.logou){
-                            window.location = "{% url 'rede:home'%}"
+        FB.getLoginStatus(
+            function callback(response){
+                if(response.status == "connected"){
+                   FB.api('/me', function callback(response){
+                       $.ajax({
+                           type:"POST",
+                           url:"{% url 'rede:fb-login'%}",
+                           data: {'userFbId': response.id,
+                               'name': response.name
+                           },
+                           dataType: 'json',
+                           success: function (data) {
+                               if(data.logou){
+                                   window.location = "{% url 'rede:home'%}"
+                               }
+                           }
+                       });
+                    }); 
+                }else{
+                    FB.Event.subscribe('auth.login', 
+                        function oe(response) {
+                            FB.api('/me', function callback(response){
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{% url 'rede:fb-login'%}",
+                                    data: {'userFbId': response.id,
+                                        'name': response.name
+                                    },
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        if(data.logou){
+                                            window.location = "{% url 'rede:home'%}"
+                                        }
+                                    }
+                               });
+                           });
+                   
                         }
-                    }
-                    });
-                })
-
-                
+                    );
+                }
             }
         );
+          
       };
 
       (function(d, s, id){
