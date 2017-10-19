@@ -1,11 +1,11 @@
 ﻿{% load static from staticfiles %}
 {% load widget_tweaks %}
-
+{%csrf_token%}
 <!DOCTYPE html>
 <html lang="pt-br">
 
     <head>
-
+        
         <script src="{% static 'js/jquery.min.js' %}"></script>
         <!--<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>-->
         <script src="{% static 'vendor/popper/popper.min.js' %}"></script>
@@ -27,13 +27,8 @@
       
       
         <link href="{% static 'css/grayscale.css' %}" rel="stylesheet">
-        
-
-    </head>
-
-<body id="page-top">
-
-    <script>
+    
+        <script>
       window.fbAsyncInit = function() {
         FB.init({
           appId            : '1882376135424294',
@@ -48,19 +43,50 @@
          var js, fjs = d.getElementsByTagName(s)[0];
          if (d.getElementById(id)) {return;}
          js = d.createElement(s); js.id = id;
-         js.src = "//connect.facebook.net/en_US/sdk.js";
+         js.src = "//connect.facebook.net/pt_BR/sdk.js";
          fjs.parentNode.insertBefore(js, fjs);
        }(document, 'script', 'facebook-jssdk'));
     </script>
 
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
+            <script>
+        (function (d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
       js = d.createElement(s); js.id = id;
       js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.10&appId=1882376135424294";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
+
+
+    <script>
+
+        
+
+        var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                
+            }
+        });
+
+    </script>
+
+        {% block javascript%}
+        {% endblock %}
+    </head>
+
+<body id="page-top">
+
+    
+    <div id="fb-root"></div>
+
+
 
     {%block navbar%}
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">

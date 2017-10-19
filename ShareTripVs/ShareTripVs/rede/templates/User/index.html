@@ -144,11 +144,42 @@
     
     {% endif %}
 
+
     
+{% endblock %}
+
+
+{% block javascript %}
+
 
     <script type="text/javascript">
-        function redireciona() {
-            window.location = "{% url 'rede:home' %}"
+        FB.Event.subscribe('auth.login', 
+            function oe(response) {
+
+                FB.api('/me', function callback(response){
+                    $.ajax({
+                    type:"POST",
+                    url:" {%comment%} {% url 'rede:login-fb'%}{% endcomment%}",
+                    data: {'userFbId': response.id,
+                        'name': response.name
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if(data.logou){
+                            window.location = {% url 'rede:home'%}
+                        }else{
+                            window.location = {% url 'rede:index'%}
+                        }
+                    }
+                    });
+                })
+
+                
+            }
+        );
+
+        function redireciona(){
+            window.location = '{% url 'rede:home'%}';
         }
     </script>
 

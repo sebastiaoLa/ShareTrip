@@ -3,12 +3,14 @@
 from __future__ import unicode_literals
 
 from django.http.response import HttpResponse,HttpResponseForbidden
+from django.http import JsonResponse
 from django.contrib.auth.models import AnonymousUser
 from django.shortcuts import render,redirect
 from django.views import generic
 from django.core.exceptions import PermissionDenied
 from django.utils import timezone
-import datetime
+import datetime,random,string
+from django.contrib.auth import authenticate, login
 
 
 from django.core.urlresolvers import reverse_lazy
@@ -183,7 +185,7 @@ class EditProfileView(generic.UpdateView):
 
     model = models.User
 
-    fields = ('foto','first_name','username','email','telefone')
+    fields = ('foto','first_name','username','email','telefone', 'password')
 
     def get(self, request, *args, **kwargs):
         print "oe"
@@ -415,3 +417,37 @@ def checkPoltrona(viagem, poltrona):
             return False
 
     return True
+
+def formataString(stri):
+    aux = ""
+    for i in stri:
+        if i == " ":
+            aux += "."
+        else:
+            aux +=i
+
+def geraUsuario(usu):
+    orig = usu
+    num = 0
+    while len(models.User.objects.filter(username=usu))>0:
+        num += 1
+        usu = orig + str(num)
+    return usu
+
+
+def my_view(request):
+    userid = request.POST['userFbId']
+    user = models.User.objects.get(user_fb_id=userid)
+    if user is not None:
+        login(request, user, backend=settings.settings.AUTHENTICATION_BACKENDS[0])
+        return JsonResponse({'logou':True})
+    else:
+        # Return an 'invalid login' error message.
+        senha = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(16))
+        user = models.User(username = geraUsuario(formataString(request.POST['name'])), user_fb_id = userid)
+        user.set_password(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(16)))
+        user.save()
+        login(request, user, backend=settings.settings.AUTHENTICATION_BACKENDS[0])
+        return JsonResponse({'logou':True})
+
+    

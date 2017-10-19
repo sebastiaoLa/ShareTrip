@@ -13,6 +13,7 @@ urlpatterns = [url(r'^$', auth_views.LoginView.as_view(template_name="User/index
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     url(r'^home/$', views.HomeView.as_view(), name='home'),
     url(r'^cadastro/$', views.UserCreateView.as_view(), name='cadastro'),
+    url(r'^loginfb/$', views.my_view, name='fb-login'),
     url(r'^criarViagem/$', views.BilheteCreateView.as_view(), name='criarViagem'),
     url(r'^criarViagem/(?P<pk>[0-9]+)/$', views.BilheteCreateViewPk.as_view(), name='criaViagemPk'),
     url(r'^editarViagem/(?P<pk>[0-9]+)/$', views.EditBilheteView.as_view(), name='editViagem'),

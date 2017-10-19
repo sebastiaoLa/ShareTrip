@@ -20,16 +20,21 @@ def user_directory_path(instance, filename):
 class User(AbstractUser):
 
     telefone = models.CharField('telefone',
-    max_length=255,)
+    max_length=255,
+    null = True,
+    blank = True
+    )
 
     
-    foto = models.FileField('Foto',upload_to=user_directory_path, null=True)
+    foto = models.FileField('Foto',upload_to=user_directory_path, null=True, blank = True)
 
     friends = models.ManyToManyField('rede.User', 
                                      related_name = 'amigos',
                                      )
-
-   
+    user_fb_id = models.CharField('UserId',
+                                 max_length=255,
+                                 null=True,unique = True
+                                 )
 
     def __str__(self):
         return "%s %s" % (self.first_name, self.last_name)
